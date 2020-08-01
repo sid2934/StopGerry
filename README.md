@@ -25,4 +25,20 @@ This project subdirectory contains the files to create and schemes, tables, etc 
 
 ### Project Goals
 
-The goal of StopGerry is to provide researchers an accessable tool kit to study the effect of gerrymandering
+The goal of StopGerry is to provide researchers an accessable tool kit to study the effect of gerrymandering. Ideally the project will grow in capability and expand the political aspects that it can analyse. 
+
+### Challenges this project faces
+
+During the inital creating of this project there were many unknowns and challenges that I could not have predicted.
+1) The first problem that I found was the knowledge needed to use the publically availiable datasets and the ability to find a way to organize it all for this projects goals.
+2) While developing this software I would test the underlying tooling on a single state and the runtime for data ingest and the size of the data were much larger than I would have predicted. Initally a single start would take nearly an hour to process for a single census report and the data was nearly 3GB.  
+3) There is a large difference on how each state releases their election results. Importing election results is less of a standard import since each needs to be either designed to import from its raw format or pre processed into a general form that is then imported.
+   
+#### Acknowledgement and Disclaimer
+I believe that it is important to disclose where much of this data has come from and to give some insite into the current state of the application.
+
+This application is not in a state that I would reccomend anyone use it as is. There is not much available currently beyone the data ingest tooling, but if you choose to use this tool please take a careful look at the source code to ensure that it does what you expect.
+
+All of the data used in this project comes directly from publically available sources. Some of note are
+* The United States Census Bureau
+* Each State'1s Secretart of State Website. A list can be found [here](https://www.thebalancesmb.com/secretary-of-state-websites-1201005) 
