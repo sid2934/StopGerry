@@ -1,0 +1,6 @@
+﻿FilePath,FileType,RecordType,RecordDescription,FileSource,DateOfNote,Skip
+resources\csv\stateData.csv,csv,state,basic state data,previous version of DB,,true
+resources\kml\state_borders\cb_2018_us_state_20m.kml,kml,state,state borders,https://www2.census.gov/geo/tiger/GENZ2018/kml/cb_2018_us_state_20m.zip,,true
+resources\csv\Ksgeo2010.csv,csv,block,geo header,https://www2.census.gov/census_2010/04-Summary_File_1/Kansas/ks2010.sf1.zip,4/1/2010,true
+resources\kml\state_congressional_districts\cb_2018_us_cd116_20m.kml,kml,district,CD116,'https://www2.census.gov/geo/tiger/GENZ2018/kml/cb_2018_us_cd116_20m.zip',,true
+resources\kml\Kansas\,kml,district,state legislative districts,'https://www2.census.gov/geo/tiger/GENZ2018/kml',,true
