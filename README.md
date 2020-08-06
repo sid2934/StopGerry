@@ -42,3 +42,26 @@ This application is not in a state that I would reccomend anyone use it as is. T
 All of the data used in this project comes directly from publically available sources. Some of note are
 * The United States Census Bureau
 * Each State'1s Secretart of State Website. A list can be found [here](https://www.thebalancesmb.com/secretary-of-state-websites-1201005) 
+
+
+#### Things that need to be changed
+1) The ability to process fixed width headers from the Census Bureau would save some manual pre-processing 
+2) Add command line arguments to process individual files without modifying the resourceMap.csv file
+3) Create a standard csv format for election data and census data to allow a user to import arbitrarily sourced data
+
+
+
+
+
+
+#### Preprocessing census data
+
+To preprocess the geoheader data for each state follow the directions below
+
+1) Download the correct summary file 1 archive from https://www2.census.gov/census_2010/04-Summary_File_1/
+2) Download the [Microsoft Access](https://www2.census.gov/census_2010/04-Summary_File_1/SF1_Access2007.accdb) file
+3) Open the Access file
+4) Follow [this guide](https://www2.census.gov/census_2010/04-Summary_File_1/0HowToUseMSAccessWithSummaryFile1.pdf) starting at step G. 
+5) Export the new $$geo2010 file as csv with headers
+6 Optional) Place the new .csv file in the resources/csv/ directory of the project
+1) Add the new .csv file to the resourceMap.csv file

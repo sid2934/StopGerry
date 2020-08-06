@@ -81,7 +81,9 @@ namespace Data_Ingest.Utilities
                         Border = null, //This prevents errors about the Geomerty encoding that SQL Server uses. We will just reprocess the border kml
                         Name = dynamicRecord.Name,
                         Source = dynamicRecord.Source,
-                        StateTypeId = Convert.ToInt32(dynamicRecord.StateTypeId)
+                        CountyTypeId = Convert.ToInt32(dynamicRecord.CountyTypeId),
+                        StateTypeId = Convert.ToInt32(dynamicRecord.StateTypeId),
+                        
                     });
                 }
                 dbContext.SaveChanges();

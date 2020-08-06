@@ -79,7 +79,7 @@ namespace Data_Ingest
         {
             if (this.IsDirectory)
             {
-                SimpleLogger.Info($"Detected {FilePath} as a directory. Will attempt to process each sub file)");
+                SimpleLogger.Info($"Detected {FilePath} as a directory. (Will attempt to process each sub file)");
                 var subEntries = GetChildrenResourceEntries();
                 int counter = 0;
                 int numberOfSubEntries = subEntries.Count;
@@ -113,6 +113,14 @@ namespace Data_Ingest
                         break;
 
                     case "county":
+                        if(FileType == "csv" && RecordDescription == "basic county data")
+                        {
+                            CountyUtilities.ProcessCountyFile(this, dbContext);
+                        }
+                        if(FileType == "csv" && RecordDescription.ToLower().Contains("election"))
+                        {
+                            OhioElectionData.ProcessOhioElectionDate(this, dbContext);
+                        }
                         break;
 
                     case "block":
