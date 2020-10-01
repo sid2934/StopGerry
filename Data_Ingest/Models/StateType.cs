@@ -3,9 +3,9 @@ using System.Collections.Generic;
 
 namespace Data_Ingest.Models
 {
-    public partial class StateType
+    public partial class Statetype
     {
-        public StateType()
+        public Statetype()
         {
             State = new HashSet<State>();
         }

@@ -16,12 +16,12 @@ namespace Data_Ingest.Models
         public string Name { get; set; }
         public string Abbreviation { get; set; }
         public string Source { get; set; }
-        public int StateTypeId { get; set; }
-        public int CountyTypeId { get; set; }
+        public int Statetypeid { get; set; }
+        public int Countytypeid { get; set; }
         public Geometry Border { get; set; }
 
-        public virtual CountyType CountyType { get; set; }
-        public virtual StateType StateType { get; set; }
+        public virtual Countytype Countytype { get; set; }
+        public virtual Statetype Statetype { get; set; }
         public virtual ICollection<CountyTime> CountyTime { get; set; }
         public virtual ICollection<StateTime> StateTime { get; set; }
     }

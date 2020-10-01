@@ -19,7 +19,7 @@ namespace Data_Ingest.Utilities
         /// This method provides a utility to define the borders of each state from a given KML file
         /// </summary>
         /// <param name="filePath">The properly formatted KLM file</param>
-        internal static void ProcessStateKMLData(string filePath, StopGerryPrdContext dbContext)
+        internal static void ProcessStateKMLData(string filePath, stopgerryContext dbContext)
         {
 
             var states = dbContext.State;
@@ -67,7 +67,7 @@ namespace Data_Ingest.Utilities
         /// </summary>
         /// <param name="filePath">Path to the stateData.csv file</param>
         /// <param name="dbContext">Database context</param>
-        internal static void ProcessBasicStateData(string filePath, StopGerryPrdContext dbContext)
+        internal static void ProcessBasicStateData(string filePath, stopgerryContext dbContext)
         {
             using(StreamReader reader = new StreamReader(filePath))
             using(CsvReader csvReader = new CsvReader(reader, CultureInfo.InvariantCulture))
@@ -81,8 +81,8 @@ namespace Data_Ingest.Utilities
                         Border = null, //This prevents errors about the Geomerty encoding that SQL Server uses. We will just reprocess the border kml
                         Name = dynamicRecord.Name,
                         Source = dynamicRecord.Source,
-                        CountyTypeId = Convert.ToInt32(dynamicRecord.CountyTypeId),
-                        StateTypeId = Convert.ToInt32(dynamicRecord.StateTypeId),
+                        Countytypeid = Convert.ToInt32(dynamicRecord.CountyTypeId),
+                        Statetypeid = Convert.ToInt32(dynamicRecord.StateTypeId),
                         
                     });
                 }

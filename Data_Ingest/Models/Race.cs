@@ -12,11 +12,11 @@ namespace Data_Ingest.Models
         }
 
         public Guid Id { get; set; }
-        public Guid CountyElectionId { get; set; }
-        public int RaceTypeId { get; set; }
+        public Guid Countyelectionid { get; set; }
+        public int Racetypeid { get; set; }
 
-        public virtual CountyElection CountyElection { get; set; }
-        public virtual RaceType RaceType { get; set; }
+        public virtual CountyElection Countyelection { get; set; }
+        public virtual RaceType Racetype { get; set; }
         public virtual ICollection<Result> Result { get; set; }
         public virtual ICollection<VoterTurnout> VoterTurnout { get; set; }
     }

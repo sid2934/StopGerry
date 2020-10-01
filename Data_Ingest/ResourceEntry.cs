@@ -59,7 +59,7 @@ namespace Data_Ingest
 
         public static void ProcessResourceMapFile(string resourceMapPath)
         {
-            using (var dbContext = new StopGerryPrdContext())
+            using (var dbContext = new stopgerryContext())
             using (var reader = new StreamReader(resourceMapPath))
             using (var csvReader = new CsvReader(reader, CultureInfo.InvariantCulture))
             {
@@ -75,7 +75,7 @@ namespace Data_Ingest
             }
         }
 
-        public void ProcessResourceEntry(StopGerryPrdContext dbContext)
+        public void ProcessResourceEntry(stopgerryContext dbContext)
         {
             if (this.IsDirectory)
             {

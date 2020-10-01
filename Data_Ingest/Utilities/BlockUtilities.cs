@@ -21,7 +21,7 @@ namespace Data_Ingest.Utilities
         /// </summary>
         /// <param name="filePath"></param>
         /// <param name="context"></param>
-        internal static void ProcessStateBlocksCSV(ResourceEntry resource, StopGerryPrdContext dbContext)
+        internal static void ProcessStateBlocksCSV(ResourceEntry resource, stopgerryContext dbContext)
         {
 
             var blocks = dbContext.Block;
@@ -56,8 +56,8 @@ namespace Data_Ingest.Utilities
 
                     censusDataCollection.Add(new BlockPopulationTime{
                         Id = Guid.NewGuid(),
-                        BlockId = blockId,
-                        ReportingDate = dateOfNote,
+                        Blockid = blockId,
+                        Reportingdate = dateOfNote,
                         Population = Convert.ToInt32(record.POP100),
                         
                     });

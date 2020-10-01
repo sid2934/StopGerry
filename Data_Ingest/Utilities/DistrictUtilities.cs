@@ -15,7 +15,7 @@ namespace Data_Ingest.Utilities
         /// This method provides a utility to define the borders of each state from a given KML file
         /// </summary>
         /// <param name="filePath">The properly formatted KLM file</param>
-        internal static void ProcessDistrictKMLData(ResourceEntry resourceFile, StopGerryPrdContext dbContext)
+        internal static void ProcessDistrictKMLData(ResourceEntry resourceFile, stopgerryContext dbContext)
         {
 
             var districts = dbContext.District;
@@ -59,7 +59,7 @@ namespace Data_Ingest.Utilities
                         Id = currentDistrictId,
                         Description = placemark.Description.Text,
                         Source = resourceFile.FileSource,
-                        DistrictTypeId = newDistrictTypeId
+                        Districttypeid = newDistrictTypeId
                     };
 
                     var districBorder = SharpKMLToNetTopology.GeometryToGeometry(placemark.Geometry);

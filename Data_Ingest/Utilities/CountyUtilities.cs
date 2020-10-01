@@ -9,7 +9,7 @@ namespace Data_Ingest.Utilities
 {
     public class CountyUtilities
     {
-        public static void ProcessCountyFile(ResourceEntry resource, StopGerryPrdContext dbContext)
+        public static void ProcessCountyFile(ResourceEntry resource, stopgerryContext dbContext)
         {
             using (var reader = new StreamReader(resource.FilePath))
             using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))

@@ -1,0 +1,14 @@
+{
+    "sqltools.connections": [
+        {
+            "previewLimit": 50,
+            "server": "deja",
+            "port": 5432,
+            "driver": "PostgreSQL",
+            "name": "Deja",
+            "database": "stopgerry",
+            "username": "stopgerry",
+            "password": "74z2WR#zlcC@1I"
+        }
+    ]
+}

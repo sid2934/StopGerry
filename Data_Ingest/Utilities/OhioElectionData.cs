@@ -10,7 +10,7 @@ namespace Data_Ingest.Utilities
 {
     public class OhioElectionData
     {
-        public static void ProcessOhioElectionDate(ResourceEntry resource, StopGerryPrdContext dbContext)
+        public static void ProcessOhioElectionDate(ResourceEntry resource, stopgerryContext dbContext)
         {
 
             string electiontypeString = resource.RecordDescription.Split('-')[3];
@@ -33,7 +33,7 @@ namespace Data_Ingest.Utilities
                 raceType = new RaceType()
                 {
                     Description = raceTypeString,
-                    PositionLevelId = 4
+                    Positionlevelid = 4
                 };
                 dbContext.Add(electionType);
                 dbContext.SaveChanges();
@@ -96,14 +96,14 @@ namespace Data_Ingest.Utilities
                                     candidateName = candidateString.Substring(0, candidateString.IndexOf('(') - 1).Trim();
                                 }
 
-                                Candidate candidate = dbContext.Candidate.Where(c => c.Name == candidateName && c.PartyId == candidateParty.Id).FirstOrDefault();
+                                Candidate candidate = dbContext.Candidate.Where(c => c.Name == candidateName && c.Partyid == candidateParty.Id).FirstOrDefault();
 
                                 if (candidate == null)
                                 {
                                     candidate = new Candidate()
                                     {
                                         Name = candidateName,
-                                        PartyId = candidateParty.Id,
+                                        Partyid = candidateParty.Id,
                                     };
                                     dbContext.Add(candidate);
                                 }
@@ -146,23 +146,23 @@ namespace Data_Ingest.Utilities
                             {
                                 Id = Guid.NewGuid(),
                                 Description = resource.RecordDescription,
-                                ElectionDate = Convert.ToDateTime(resource.DateOfNote),
-                                ElectionTypeId = electionType.Id,
-                                CountyId = county.Id
+                                Electiondate = Convert.ToDateTime(resource.DateOfNote),
+                                Electiontypeid = electionType.Id,
+                                Countyid = county.Id
                             };
                             dbContext.Add(countyElection);
                             dbContext.SaveChanges();
                         }
 
 
-                        Race race = dbContext.Race.Where(r => r.CountyElectionId == countyElection.Id && r.RaceTypeId == raceType.Id).FirstOrDefault();
+                        Race race = dbContext.Race.Where(r => r.Countyelectionid == countyElection.Id && r.Racetypeid == raceType.Id).FirstOrDefault();
                         if (race == null)
                         {
                             race = new Race()
                             {
                                 Id = Guid.NewGuid(),
-                                RaceTypeId = raceType.Id,
-                                CountyElectionId = countyElection.Id
+                                Racetypeid = raceType.Id,
+                                Countyelectionid = countyElection.Id
                             };
                             dbContext.Add(race);
                             dbContext.SaveChanges();
@@ -178,9 +178,9 @@ namespace Data_Ingest.Utilities
                                 dbContext.Result.Add(new Result()
                                 {
                                     Id = Guid.NewGuid(),
-                                    CandidateId = candidate.Value.Id,
-                                    NumberOfVotesRecieved = int.Parse(csv.GetField(candidate.Key), NumberStyles.AllowThousands),
-                                    RaceId = race.Id,
+                                    Candidateid = candidate.Value.Id,
+                                    Numberofvotesrecieved = int.Parse(csv.GetField(candidate.Key), NumberStyles.AllowThousands),
+                                    Raceid = race.Id,
                                     Source = resource.FileSource,
                                 });
                             }

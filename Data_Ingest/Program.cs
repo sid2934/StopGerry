@@ -36,7 +36,7 @@ namespace Data_Ingest
 
         private static void AnalyzeBlocksForDistrictRelationships()
         {
-            var dbContext = new StopGerryPrdContext();
+            var dbContext = new stopgerryContext();
 
             //Get all blocks
             var allBlocks = dbContext.Block.ToList();
@@ -59,9 +59,9 @@ namespace Data_Ingest
                         //Create new Block_District_Time
                         newResults.Add(new BlockDistrictTime(){
                             Id = Guid.NewGuid(),
-                            BlockId = block.Id,
-                            DistrictId = district.Id,
-                            TimeStart = Convert.ToDateTime("1/1/1970")
+                            Blockid = block.Id,
+                            Districtid = district.Id,
+                            Timestart = Convert.ToDateTime("1/1/1970")
                         });
                     }
                 });

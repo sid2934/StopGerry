@@ -3,9 +3,9 @@ using System.Collections.Generic;
 
 namespace Data_Ingest.Models
 {
-    public partial class DistrictType
+    public partial class Districttype
     {
-        public DistrictType()
+        public Districttype()
         {
             District = new HashSet<District>();
         }

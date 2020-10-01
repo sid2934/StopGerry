@@ -11,8 +11,8 @@ namespace Data_Ingest.Models
         }
 
         public Guid Id { get; set; }
-        public string BlockId { get; set; }
-        public DateTime ReportingDate { get; set; }
+        public string Blockid { get; set; }
+        public DateTime Reportingdate { get; set; }
         public int Population { get; set; }
 
         public virtual ICollection<Demographic> Demographic { get; set; }

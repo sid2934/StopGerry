@@ -3,9 +3,9 @@ using System.Collections.Generic;
 
 namespace Data_Ingest.Models
 {
-    public partial class CountyType
+    public partial class Countytype
     {
-        public CountyType()
+        public Countytype()
         {
             State = new HashSet<State>();
         }
