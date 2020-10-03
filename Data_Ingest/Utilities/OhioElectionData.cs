@@ -27,10 +27,10 @@ namespace Data_Ingest.Utilities
             }
 
             string raceTypeString = resource.RecordDescription.Split('-')[2];
-            RaceType raceType = dbContext.RaceType.Where(rt => rt.Description == raceTypeString).FirstOrDefault();
+            ElectionraceType raceType = dbContext.ElectionraceType.Where(rt => rt.Description == raceTypeString).FirstOrDefault();
             if (raceType == null)
             {
-                raceType = new RaceType()
+                raceType = new ElectionraceType()
                 {
                     Description = raceTypeString,
                     Positionlevelid = 4
@@ -155,13 +155,13 @@ namespace Data_Ingest.Utilities
                         }
 
 
-                        Race race = dbContext.Race.Where(r => r.Countyelectionid == countyElection.Id && r.Racetypeid == raceType.Id).FirstOrDefault();
+                        Electionrace race = dbContext.Electionrace.Where(r => r.Countyelectionid == countyElection.Id && r.Electionracetypeid == raceType.Id).FirstOrDefault();
                         if (race == null)
                         {
-                            race = new Race()
+                            race = new Electionrace()
                             {
                                 Id = Guid.NewGuid(),
-                                Racetypeid = raceType.Id,
+                                Electionracetypeid = raceType.Id,
                                 Countyelectionid = countyElection.Id
                             };
                             dbContext.Add(race);
@@ -180,7 +180,7 @@ namespace Data_Ingest.Utilities
                                     Id = Guid.NewGuid(),
                                     Candidateid = candidate.Value.Id,
                                     Numberofvotesrecieved = int.Parse(csv.GetField(candidate.Key), NumberStyles.AllowThousands),
-                                    Raceid = race.Id,
+                                    Electionraceid = race.Id,
                                     Source = resource.FileSource,
                                 });
                             }

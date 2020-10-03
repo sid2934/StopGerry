@@ -7,12 +7,12 @@ namespace Data_Ingest.Models
     {
         public PositionLevel()
         {
-            RaceType = new HashSet<RaceType>();
+            ElectionraceType = new HashSet<ElectionraceType>();
         }
 
         public int Id { get; set; }
         public string Description { get; set; }
 
-        public virtual ICollection<RaceType> RaceType { get; set; }
+        public virtual ICollection<ElectionraceType> ElectionraceType { get; set; }
     }
 }

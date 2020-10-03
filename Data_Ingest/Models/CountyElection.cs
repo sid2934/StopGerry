@@ -7,7 +7,7 @@ namespace Data_Ingest.Models
     {
         public CountyElection()
         {
-            Race = new HashSet<Race>();
+            Electionrace = new HashSet<Electionrace>();
         }
 
         public Guid Id { get; set; }
@@ -18,6 +18,6 @@ namespace Data_Ingest.Models
 
         public virtual County County { get; set; }
         public virtual ElectionType Electiontype { get; set; }
-        public virtual ICollection<Race> Race { get; set; }
+        public virtual ICollection<Electionrace> Electionrace { get; set; }
     }
 }

@@ -3,11 +3,11 @@ using System.Collections.Generic;
 
 namespace Data_Ingest.Models
 {
-    public partial class RaceType
+    public partial class ElectionraceType
     {
-        public RaceType()
+        public ElectionraceType()
         {
-            Race = new HashSet<Race>();
+            Electionrace = new HashSet<Electionrace>();
         }
 
         public int Id { get; set; }
@@ -15,6 +15,6 @@ namespace Data_Ingest.Models
         public int Positionlevelid { get; set; }
 
         public virtual PositionLevel Positionlevel { get; set; }
-        public virtual ICollection<Race> Race { get; set; }
+        public virtual ICollection<Electionrace> Electionrace { get; set; }
     }
 }

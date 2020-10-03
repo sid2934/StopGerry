@@ -28,10 +28,10 @@ namespace Data_Ingest.Models
         public virtual DbSet<District> District { get; set; }
         public virtual DbSet<Districttype> Districttype { get; set; }
         public virtual DbSet<ElectionType> ElectionType { get; set; }
+        public virtual DbSet<Electionrace> Electionrace { get; set; }
+        public virtual DbSet<ElectionraceType> ElectionraceType { get; set; }
         public virtual DbSet<Party> Party { get; set; }
         public virtual DbSet<PositionLevel> PositionLevel { get; set; }
-        public virtual DbSet<Race> Race { get; set; }
-        public virtual DbSet<RaceType> RaceType { get; set; }
         public virtual DbSet<Result> Result { get; set; }
         public virtual DbSet<State> State { get; set; }
         public virtual DbSet<StateTime> StateTime { get; set; }
@@ -54,7 +54,7 @@ namespace Data_Ingest.Models
 
             modelBuilder.Entity<Block>(entity =>
             {
-                entity.ToTable("block", "location");
+                entity.ToTable("block");
 
                 entity.Property(e => e.Id)
                     .HasColumnName("id")
@@ -79,7 +79,7 @@ namespace Data_Ingest.Models
 
             modelBuilder.Entity<BlockCountyTime>(entity =>
             {
-                entity.ToTable("block_county_time", "location");
+                entity.ToTable("block_county_time");
 
                 entity.Property(e => e.Id)
                     .HasColumnName("id")
@@ -118,7 +118,7 @@ namespace Data_Ingest.Models
 
             modelBuilder.Entity<BlockDistrictTime>(entity =>
             {
-                entity.ToTable("block_district_time", "location");
+                entity.ToTable("block_district_time");
 
                 entity.Property(e => e.Id)
                     .HasColumnName("id")
@@ -157,7 +157,7 @@ namespace Data_Ingest.Models
 
             modelBuilder.Entity<BlockPopulationTime>(entity =>
             {
-                entity.ToTable("block_population_time", "census");
+                entity.ToTable("block_population_time");
 
                 entity.Property(e => e.Id)
                     .HasColumnName("id")
@@ -177,7 +177,7 @@ namespace Data_Ingest.Models
 
             modelBuilder.Entity<Candidate>(entity =>
             {
-                entity.ToTable("candidate", "election");
+                entity.ToTable("candidate");
 
                 entity.Property(e => e.Id).HasColumnName("id");
 
@@ -187,7 +187,6 @@ namespace Data_Ingest.Models
 
                 entity.Property(e => e.Name)
                     .IsRequired()
-                    .HasColumnName("name")
                     .HasMaxLength(50);
 
                 entity.Property(e => e.Partyid).HasColumnName("partyid");
@@ -201,7 +200,7 @@ namespace Data_Ingest.Models
 
             modelBuilder.Entity<County>(entity =>
             {
-                entity.ToTable("county", "location");
+                entity.ToTable("county");
 
                 entity.Property(e => e.Id)
                     .HasColumnName("id")
@@ -221,7 +220,7 @@ namespace Data_Ingest.Models
 
             modelBuilder.Entity<CountyElection>(entity =>
             {
-                entity.ToTable("county_election", "election");
+                entity.ToTable("county_election");
 
                 entity.Property(e => e.Id)
                     .HasColumnName("id")
@@ -258,7 +257,7 @@ namespace Data_Ingest.Models
 
             modelBuilder.Entity<CountyTime>(entity =>
             {
-                entity.ToTable("county_time", "location");
+                entity.ToTable("county_time");
 
                 entity.Property(e => e.Id)
                     .HasColumnName("id")
@@ -294,7 +293,7 @@ namespace Data_Ingest.Models
 
             modelBuilder.Entity<Countytype>(entity =>
             {
-                entity.ToTable("countytype", "location");
+                entity.ToTable("countytype");
 
                 entity.Property(e => e.Id).HasColumnName("id");
 
@@ -306,7 +305,7 @@ namespace Data_Ingest.Models
 
             modelBuilder.Entity<Demographic>(entity =>
             {
-                entity.ToTable("demographic", "census");
+                entity.ToTable("demographic");
 
                 entity.Property(e => e.Id)
                     .HasColumnName("id")
@@ -323,7 +322,7 @@ namespace Data_Ingest.Models
 
             modelBuilder.Entity<District>(entity =>
             {
-                entity.ToTable("district", "location");
+                entity.ToTable("district");
 
                 entity.Property(e => e.Id)
                     .HasColumnName("id")
@@ -350,7 +349,7 @@ namespace Data_Ingest.Models
 
             modelBuilder.Entity<Districttype>(entity =>
             {
-                entity.ToTable("districttype", "location");
+                entity.ToTable("districttype");
 
                 entity.HasIndex(e => e.DistrictTypeCode)
                     .HasName("districttype_district_type_code_key")
@@ -371,7 +370,7 @@ namespace Data_Ingest.Models
 
             modelBuilder.Entity<ElectionType>(entity =>
             {
-                entity.ToTable("election_type", "election");
+                entity.ToTable("election_type");
 
                 entity.Property(e => e.Id).HasColumnName("id");
 
@@ -381,37 +380,9 @@ namespace Data_Ingest.Models
                     .HasMaxLength(50);
             });
 
-            modelBuilder.Entity<Party>(entity =>
+            modelBuilder.Entity<Electionrace>(entity =>
             {
-                entity.ToTable("party", "election");
-
-                entity.Property(e => e.Id).HasColumnName("id");
-
-                entity.Property(e => e.Abbreviation)
-                    .HasColumnName("abbreviation")
-                    .HasMaxLength(5);
-
-                entity.Property(e => e.Name)
-                    .IsRequired()
-                    .HasColumnName("name")
-                    .HasMaxLength(50);
-            });
-
-            modelBuilder.Entity<PositionLevel>(entity =>
-            {
-                entity.ToTable("position_level", "election");
-
-                entity.Property(e => e.Id).HasColumnName("id");
-
-                entity.Property(e => e.Description)
-                    .IsRequired()
-                    .HasColumnName("description")
-                    .HasMaxLength(50);
-            });
-
-            modelBuilder.Entity<Race>(entity =>
-            {
-                entity.ToTable("race", "election");
+                entity.ToTable("electionrace");
 
                 entity.Property(e => e.Id)
                     .HasColumnName("id")
@@ -419,24 +390,24 @@ namespace Data_Ingest.Models
 
                 entity.Property(e => e.Countyelectionid).HasColumnName("countyelectionid");
 
-                entity.Property(e => e.Racetypeid).HasColumnName("racetypeid");
+                entity.Property(e => e.Electionracetypeid).HasColumnName("electionracetypeid");
 
                 entity.HasOne(d => d.Countyelection)
-                    .WithMany(p => p.Race)
+                    .WithMany(p => p.Electionrace)
                     .HasForeignKey(d => d.Countyelectionid)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("fk_countyelection_race");
+                    .HasConstraintName("fk_countyelection_electionrace");
 
-                entity.HasOne(d => d.Racetype)
-                    .WithMany(p => p.Race)
-                    .HasForeignKey(d => d.Racetypeid)
+                entity.HasOne(d => d.Electionracetype)
+                    .WithMany(p => p.Electionrace)
+                    .HasForeignKey(d => d.Electionracetypeid)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("fk_racetype_race");
+                    .HasConstraintName("fk_electionracetype_electionrace");
             });
 
-            modelBuilder.Entity<RaceType>(entity =>
+            modelBuilder.Entity<ElectionraceType>(entity =>
             {
-                entity.ToTable("race_type", "election");
+                entity.ToTable("electionrace_type");
 
                 entity.Property(e => e.Id).HasColumnName("id");
 
@@ -448,15 +419,42 @@ namespace Data_Ingest.Models
                 entity.Property(e => e.Positionlevelid).HasColumnName("positionlevelid");
 
                 entity.HasOne(d => d.Positionlevel)
-                    .WithMany(p => p.RaceType)
+                    .WithMany(p => p.ElectionraceType)
                     .HasForeignKey(d => d.Positionlevelid)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("fk_positionlevel_racetype");
+                    .HasConstraintName("fk_positionlevel_electionracetype");
+            });
+
+            modelBuilder.Entity<Party>(entity =>
+            {
+                entity.ToTable("party");
+
+                entity.Property(e => e.Id).HasColumnName("id");
+
+                entity.Property(e => e.Abbreviation)
+                    .HasColumnName("abbreviation")
+                    .HasMaxLength(5);
+
+                entity.Property(e => e.Name)
+                    .IsRequired()
+                    .HasMaxLength(50);
+            });
+
+            modelBuilder.Entity<PositionLevel>(entity =>
+            {
+                entity.ToTable("position_level");
+
+                entity.Property(e => e.Id).HasColumnName("id");
+
+                entity.Property(e => e.Description)
+                    .IsRequired()
+                    .HasColumnName("description")
+                    .HasMaxLength(50);
             });
 
             modelBuilder.Entity<Result>(entity =>
             {
-                entity.ToTable("result", "election");
+                entity.ToTable("result");
 
                 entity.Property(e => e.Id)
                     .HasColumnName("id")
@@ -464,9 +462,9 @@ namespace Data_Ingest.Models
 
                 entity.Property(e => e.Candidateid).HasColumnName("candidateid");
 
-                entity.Property(e => e.Numberofvotesrecieved).HasColumnName("numberofvotesrecieved");
+                entity.Property(e => e.Electionraceid).HasColumnName("electionraceid");
 
-                entity.Property(e => e.Raceid).HasColumnName("raceid");
+                entity.Property(e => e.Numberofvotesrecieved).HasColumnName("numberofvotesrecieved");
 
                 entity.Property(e => e.Source)
                     .IsRequired()
@@ -479,16 +477,16 @@ namespace Data_Ingest.Models
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("fk_candidate_result");
 
-                entity.HasOne(d => d.Race)
+                entity.HasOne(d => d.Electionrace)
                     .WithMany(p => p.Result)
-                    .HasForeignKey(d => d.Raceid)
+                    .HasForeignKey(d => d.Electionraceid)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("fk_race_result");
+                    .HasConstraintName("fk_electionrace_result");
             });
 
             modelBuilder.Entity<State>(entity =>
             {
-                entity.ToTable("state", "location");
+                entity.ToTable("state");
 
                 entity.Property(e => e.Id)
                     .HasColumnName("id")
@@ -529,7 +527,7 @@ namespace Data_Ingest.Models
 
             modelBuilder.Entity<StateTime>(entity =>
             {
-                entity.ToTable("state_time", "location");
+                entity.ToTable("state_time");
 
                 entity.Property(e => e.Id)
                     .HasColumnName("id")
@@ -554,7 +552,7 @@ namespace Data_Ingest.Models
 
             modelBuilder.Entity<Statetype>(entity =>
             {
-                entity.ToTable("statetype", "location");
+                entity.ToTable("statetype");
 
                 entity.Property(e => e.Id).HasColumnName("id");
 
@@ -566,23 +564,23 @@ namespace Data_Ingest.Models
 
             modelBuilder.Entity<VoterTurnout>(entity =>
             {
-                entity.ToTable("voter_turnout", "election");
+                entity.ToTable("voter_turnout");
 
                 entity.Property(e => e.Id)
                     .HasColumnName("id")
                     .HasDefaultValueSql("uuid_generate_v4()");
 
-                entity.Property(e => e.Raceid).HasColumnName("raceid");
+                entity.Property(e => e.Electionraceid).HasColumnName("electionraceid");
 
                 entity.Property(e => e.Registeredvoters).HasColumnName("registeredvoters");
 
                 entity.Property(e => e.Totalvoters).HasColumnName("totalvoters");
 
-                entity.HasOne(d => d.Race)
+                entity.HasOne(d => d.Electionrace)
                     .WithMany(p => p.VoterTurnout)
-                    .HasForeignKey(d => d.Raceid)
+                    .HasForeignKey(d => d.Electionraceid)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("fk_race_voterturnout");
+                    .HasConstraintName("fk_electionrace_voterturnout");
             });
 
             OnModelCreatingPartial(modelBuilder);

@@ -1,11 +1,5 @@
-/* DROP ALL TABLES
-DROP SCHEMA "Location" CASCADE;
-*/
-
-CREATE SCHEMA IF NOT EXISTS "Location";
-
-DROP TABLE IF EXISTS "Location".Block;
-CREATE TABLE IF NOT EXISTS "Location".Block
+DROP TABLE IF EXISTS Block;
+CREATE TABLE IF NOT EXISTS Block
 (
  Id          VARCHAR(50) NOT NULL PRIMARY KEY,
  Description VARCHAR(255) NOT NULL,
@@ -17,14 +11,14 @@ CREATE TABLE IF NOT EXISTS "Location".Block
 
 
 -- CountyType Start
-DROP TABLE IF EXISTS "Location".CountyType;
-CREATE TABLE IF NOT EXISTS "Location".CountyType
+DROP TABLE IF EXISTS CountyType;
+CREATE TABLE IF NOT EXISTS CountyType
 (
     Id SERIAL PRIMARY KEY,
     Description VARCHAR(50) NOT NULL
 );
 
-INSERT INTO "Location".CountyType
+INSERT INTO CountyType
 ( -- Columns to insert data into
  Description
 )
@@ -43,8 +37,8 @@ VALUES
 );
 -- CountyType End
 
-DROP TABLE IF EXISTS "Location".County;
-CREATE TABLE IF NOT EXISTS "Location".County
+DROP TABLE IF EXISTS County;
+CREATE TABLE IF NOT EXISTS County
 (
     Id VARCHAR(50) NOT NULL PRIMARY KEY,
     Description VARCHAR(255) NOT NULL,
@@ -54,14 +48,14 @@ CREATE TABLE IF NOT EXISTS "Location".County
 );
 
 -- StateType Start 
-DROP TABLE IF EXISTS "Location".StateType;
-CREATE TABLE IF NOT EXISTS "Location".StateType
+DROP TABLE IF EXISTS StateType;
+CREATE TABLE IF NOT EXISTS StateType
 (
     Id SERIAL PRIMARY KEY, -- Primary Key column
     Description VARCHAR(50) NOT NULL
 );
 
-INSERT INTO "Location".StateType
+INSERT INTO StateType
 ( -- Columns to insert data into
  Description
 )
@@ -85,8 +79,8 @@ VALUES
 -- StateType End
 
 
-DROP TABLE IF EXISTS "Location".State;
-CREATE TABLE IF NOT EXISTS "Location".State
+DROP TABLE IF EXISTS State;
+CREATE TABLE IF NOT EXISTS State
 (
     Id INT NOT NULL PRIMARY KEY, -- Primary Key column
     Name VARCHAR(50) NOT NULL,
@@ -96,12 +90,12 @@ CREATE TABLE IF NOT EXISTS "Location".State
     CountyTypeId INT NOT NULL,
     Border GEOMETRY NULL,
     
-    CONSTRAINT FK_CountyType_State FOREIGN KEY (CountyTypeId)  REFERENCES "Location".CountyType(Id),
-    CONSTRAINT FK_StateType_State FOREIGN KEY (StateTypeId)  REFERENCES "Location".StateType(Id)
+    CONSTRAINT FK_CountyType_State FOREIGN KEY (CountyTypeId)  REFERENCES CountyType(Id),
+    CONSTRAINT FK_StateType_State FOREIGN KEY (StateTypeId)  REFERENCES StateType(Id)
 );
 
-DROP TABLE IF EXISTS "Location".State_Time;
-CREATE TABLE IF NOT EXISTS "Location".State_Time
+DROP TABLE IF EXISTS State_Time;
+CREATE TABLE IF NOT EXISTS State_Time
 (
     Id uuid PRIMARY KEY DEFAULT UUID_GENERATE_V4(),
     StateId INT NOT NULL, -- Primary Key column
@@ -109,11 +103,11 @@ CREATE TABLE IF NOT EXISTS "Location".State_Time
     TimeEnd DATE NULL,
     
 
-    CONSTRAINT FK_StateTime_State FOREIGN KEY (StateId)  REFERENCES "Location".State(Id)
+    CONSTRAINT FK_StateTime_State FOREIGN KEY (StateId)  REFERENCES State(Id)
 );
 
-DROP TABLE IF EXISTS "Location".County_Time;
-CREATE TABLE IF NOT EXISTS "Location".County_Time
+DROP TABLE IF EXISTS County_Time;
+CREATE TABLE IF NOT EXISTS County_Time
 (
     Id uuid PRIMARY KEY DEFAULT UUID_GENERATE_V4(),
     CountyId VARCHAR(50) NOT NULL, -- Primary Key column
@@ -121,12 +115,12 @@ CREATE TABLE IF NOT EXISTS "Location".County_Time
     TimeEnd DATE NULL,
     StateId INT NOT NULL,
 
-    CONSTRAINT FK_State_County_CountyId FOREIGN KEY (CountyId)  REFERENCES "Location".County(Id),
-    CONSTRAINT FK_State_County_StateId FOREIGN KEY (StateId)  REFERENCES "Location".State(Id)
+    CONSTRAINT FK_State_County_CountyId FOREIGN KEY (CountyId)  REFERENCES County(Id),
+    CONSTRAINT FK_State_County_StateId FOREIGN KEY (StateId)  REFERENCES State(Id)
 );
 
-DROP TABLE IF EXISTS "Location".Block_County_Time;
-CREATE TABLE IF NOT EXISTS "Location".Block_County_Time
+DROP TABLE IF EXISTS Block_County_Time;
+CREATE TABLE IF NOT EXISTS Block_County_Time
 (
     Id uuid PRIMARY KEY DEFAULT UUID_GENERATE_V4(),
     BlockId VARCHAR(50) NOT NULL, -- Primary Key column
@@ -134,20 +128,20 @@ CREATE TABLE IF NOT EXISTS "Location".Block_County_Time
     TimeEnd DATE NULL,
     CountyId VARCHAR(50) NOT NULL,
 
-    CONSTRAINT FK_County_Block_BlockId FOREIGN KEY (BlockId)  REFERENCES "Location".Block(Id),
-    CONSTRAINT FK_County_Block_CountyId FOREIGN KEY (CountyId)  REFERENCES "Location".County(Id)
+    CONSTRAINT FK_County_Block_BlockId FOREIGN KEY (BlockId)  REFERENCES Block(Id),
+    CONSTRAINT FK_County_Block_CountyId FOREIGN KEY (CountyId)  REFERENCES County(Id)
 );
 
 -- DistrictType Start
-DROP TABLE IF EXISTS "Location".DistrictType;
-CREATE TABLE IF NOT EXISTS "Location".DistrictType
+DROP TABLE IF EXISTS DistrictType;
+CREATE TABLE IF NOT EXISTS DistrictType
 (
     Id SERIAL PRIMARY KEY, -- Primary Key column
     Description VARCHAR(50) NOT NULL,
     District_Type_Code VARCHAR(5) NOT NULL UNIQUE
 );
 
-INSERT INTO "Location".DistrictType
+INSERT INTO DistrictType
 ( -- Columns to insert data into
  Description,District_Type_Code
 )
@@ -163,8 +157,8 @@ VALUES
 );
 -- DistrictType End
 
-DROP TABLE IF EXISTS "Location".District;
-CREATE TABLE IF NOT EXISTS "Location".District
+DROP TABLE IF EXISTS District;
+CREATE TABLE IF NOT EXISTS District
 (
     Id VARCHAR(50) NOT NULL PRIMARY KEY,
     Description text NOT NULL,
@@ -173,23 +167,23 @@ CREATE TABLE IF NOT EXISTS "Location".District
     Border geometry NULL,
 
 
-    CONSTRAINT FK_DistrictType_District FOREIGN KEY (DistrictTypeId)  REFERENCES "Location".DistrictType(Id)
+    CONSTRAINT FK_DistrictType_District FOREIGN KEY (DistrictTypeId)  REFERENCES DistrictType(Id)
 );
 
-DROP TABLE IF EXISTS "Location".District_Time;
-CREATE TABLE IF NOT EXISTS "Location".District_Time
+DROP TABLE IF EXISTS District_Time;
+CREATE TABLE IF NOT EXISTS District_Time
 (
     Id uuid PRIMARY KEY DEFAULT UUID_GENERATE_V4(),
     DistrictId VARCHAR(50) NOT NULL,
     TimeStart DATE NOT NULL,
     TimeEnd DATE NULL,
 
-    CONSTRAINT FK_DistrictTime_District FOREIGN KEY (DistrictId)  REFERENCES "Location".District(Id)
+    CONSTRAINT FK_DistrictTime_District FOREIGN KEY (DistrictId)  REFERENCES District(Id)
 );
 
 
-DROP TABLE IF EXISTS "Location".District_Time;
-CREATE TABLE IF NOT EXISTS "Location".Block_District_Time
+DROP TABLE IF EXISTS District_Time;
+CREATE TABLE IF NOT EXISTS Block_District_Time
 (
     Id uuid PRIMARY KEY DEFAULT UUID_GENERATE_V4(),
     BlockId VARCHAR(50) NOT NULL, -- Primary Key column
@@ -197,7 +191,7 @@ CREATE TABLE IF NOT EXISTS "Location".Block_District_Time
     TimeEnd DATE NULL,
     DistrictId VARCHAR(50) NOT NULL,
 
-    CONSTRAINT FK_District_Block_BlockId FOREIGN KEY (BlockId)  REFERENCES "Location".Block(Id),
-    CONSTRAINT FK_District_Block_DistrictId FOREIGN KEY (DistrictId)  REFERENCES "Location".District(Id)
+    CONSTRAINT FK_District_Block_BlockId FOREIGN KEY (BlockId)  REFERENCES Block(Id),
+    CONSTRAINT FK_District_Block_DistrictId FOREIGN KEY (DistrictId)  REFERENCES District(Id)
 );
 
