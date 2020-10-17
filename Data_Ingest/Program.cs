@@ -26,14 +26,15 @@ namespace Data_Ingest
             SimpleLogger.Start(true);
             //This foreach loop looks at the file_map file in the resources and process each listed file
 
-            ResourceEntry.ProcessResourceMapFile(@"resources\resourceMap.csv");
+            //ResourceEntry.ProcessResourceMapFile(@"resources\resourceMap.csv");
 
             //Generate relatioinships between blocks and districts
-            //AnalyzeBlocksForDistrictRelationships();
+            AnalyzeBlocksForDistrictRelationships();
 
             SimpleLogger.Stop();
         }
-
+        
+        //ToDo: This method will soon be replaced with some MPI implementation
         private static void AnalyzeBlocksForDistrictRelationships()
         {
             var dbContext = new stopgerryContext();
@@ -49,7 +50,7 @@ namespace Data_Ingest
 
 
             var newResults = new ConcurrentBag<BlockDistrictTime>();
-
+            
             Parallel.ForEach(allBlocks, block =>
             {
                 Parallel.ForEach(allDistricts, district =>
