@@ -16,6 +16,8 @@ using StopGerry.DataIngest;
 using System.Threading.Tasks;
 using StopGerry.Utilities;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.EntityFrameworkCore;
 
 namespace StopGerry
 {
@@ -28,6 +30,7 @@ namespace StopGerry
 
     class Program
     {
+
         static void Main(string[] args)
         {
 
@@ -36,10 +39,11 @@ namespace StopGerry
                 .AddEnvironmentVariables()
                 .Build();
 
-            var section = Configuration.GetSection("Sectionofsettings");
+
+            var section = Configuration.GetConnectionString("Deja");
 
             SimpleLogger.Start(true);
-            
+
             CommandLine.Parser.Default.ParseArguments<DataIngest.Options>(args)
                 .MapResult(
                     (DataIngest.Options opts) => DataIngest.RequestHandler.HandleRequest(opts),
@@ -56,7 +60,7 @@ namespace StopGerry
 
             SimpleLogger.Stop();
         }
-        
+
         //ToDo: This method will soon be replaced with some MPI implementation
         private static void AnalyzeBlocksForDistrictRelationships()
         {
@@ -73,7 +77,7 @@ namespace StopGerry
 
 
             var newResults = new ConcurrentBag<BlockDistrictTime>();
-            
+
             Parallel.ForEach(allBlocks, block =>
             {
                 Parallel.ForEach(allDistricts, district =>
@@ -81,7 +85,8 @@ namespace StopGerry
                     if (district.Border.Contains(block.Coordinates))
                     {
                         //Create new Block_District_Time
-                        newResults.Add(new BlockDistrictTime(){
+                        newResults.Add(new BlockDistrictTime()
+                        {
                             Id = Guid.NewGuid(),
                             Blockid = block.Id,
                             Districtid = district.Id,

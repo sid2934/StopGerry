@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.Extensions.Configuration;
 
 namespace StopGerry.Models
 {
@@ -42,8 +43,12 @@ namespace StopGerry.Models
         {
             if (!optionsBuilder.IsConfigured)
             {
-//#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseNpgsql("Host=deja;Database=stopgerry;Username=stopgerry;Password=74z2WR#zlcC@1I", x => x.UseNetTopologySuite());
+               // add IConfigurationRoot  to get connection string 
+                IConfigurationRoot configuration = new ConfigurationBuilder()
+                    .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
+                    .AddJsonFile("appsettings.json")
+                    .Build();
+                    optionsBuilder.UseNpgsql(configuration.GetConnectionString("Deja"), x => x.UseNetTopologySuite());
             }
         }
 
