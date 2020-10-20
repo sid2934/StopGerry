@@ -16,6 +16,12 @@ namespace StopGerry.DataIngest
             HelpText = "The path to the desired resource map. Defaulted to ./resources/resourceMap.csv")]
         public string ResourcePath { get; set; }
 
+        [Option('a', "perform-analysis", 
+            Required = false, 
+            Default= false,
+            HelpText = "The path to the desired resource map. Defaulted to ./resources/resourceMap.csv")]
+        public bool PerformAnalysis { get; set; }
+
     }
 
 }

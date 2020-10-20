@@ -9,7 +9,7 @@ using CsvHelper;
 using StopGerry.Models;
 using NetTopologySuite.Geometries;
 
-namespace StopGerry.Utilities
+namespace StopGerry.DataIngest.Utilities
 {
     public class BlockUtilities
     {

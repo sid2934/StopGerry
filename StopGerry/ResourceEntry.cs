@@ -7,6 +7,7 @@ using System.Linq;
 using CsvHelper;
 using StopGerry.Models;
 using StopGerry.Utilities;
+using StopGerry.DataIngest.Utilities;
 
 namespace StopGerry
 {

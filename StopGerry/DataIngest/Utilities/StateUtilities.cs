@@ -9,10 +9,11 @@ using SharpKml.Engine;
 using StopGerry.Utilities;
 using CsvHelper;
 using System.Globalization;
+using StopGerry.Utilities;
 
-namespace StopGerry.Utilities
+namespace StopGerry.DataIngest.Utilities
 {
-    public class StateUtility
+    internal class StateUtility
     {
         
         /// <summary>

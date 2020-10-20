@@ -6,8 +6,9 @@ using StopGerry.Models;
 using Microsoft.EntityFrameworkCore;
 using SharpKml.Dom;
 using SharpKml.Engine;
+using StopGerry.Utilities;
 
-namespace StopGerry.Utilities
+namespace StopGerry.DataIngest.Utilities
 {
     public class DistrictUtilities
     {

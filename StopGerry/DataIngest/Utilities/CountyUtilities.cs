@@ -4,8 +4,9 @@ using System.IO;
 using System.Linq;
 using CsvHelper;
 using StopGerry.Models;
+using StopGerry.Utilities;
 
-namespace StopGerry.Utilities
+namespace StopGerry.DataIngest.Utilities
 {
     public class CountyUtilities
     {

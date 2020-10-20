@@ -2,8 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using NetTopologySuite.Geometries;
+using StopGerry.Utilities;
 
-namespace StopGerry.Utilities
+namespace StopGerry.DataIngest.Utilities
 {
     public class SharpKMLToNetTopology
     {

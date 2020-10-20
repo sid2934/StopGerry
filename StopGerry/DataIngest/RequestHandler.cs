@@ -12,6 +12,11 @@ namespace StopGerry.DataIngest
             try
             {
                 ResourceEntry.ProcessResourceMapFile(options.ResourcePath);
+
+                if(options.PerformAnalysis == true)
+                {
+                    Analysis.AnalyzeBlocksForDistrictRelationships();
+                }
             }
             catch (Exception e)
             {

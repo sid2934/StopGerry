@@ -43,12 +43,7 @@ namespace StopGerry.Models
         {
             if (!optionsBuilder.IsConfigured)
             {
-               // add IConfigurationRoot  to get connection string 
-                IConfigurationRoot configuration = new ConfigurationBuilder()
-                    .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
-                    .AddJsonFile("appsettings.json")
-                    .Build();
-                    optionsBuilder.UseNpgsql(configuration.GetConnectionString("Deja"), x => x.UseNetTopologySuite());
+                optionsBuilder.UseNpgsql(GlobalConfig.Configuration.GetConnectionString("Deja"), x => x.UseNetTopologySuite());
             }
         }
 
