@@ -16,7 +16,7 @@ CREATE TABLE IF NOT EXISTS County_Election
     ElectionTypeId INT NOT NULL,
 
     CONSTRAINT FK_ElectionType_CountyElection FOREIGN KEY (ElectionTypeId) REFERENCES Election_Type(Id),
-    CONSTRAINT FK_County_CountyElection FOREIGN KEY (CountyId)  REFERENCES Location.County(Id)
+    CONSTRAINT FK_County_CountyElection FOREIGN KEY (CountyId)  REFERENCES County(Id)
 );
 
 DROP TABLE IF EXISTS Position_Level;
