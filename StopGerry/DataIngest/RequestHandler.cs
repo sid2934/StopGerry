@@ -11,7 +11,10 @@ namespace StopGerry.DataIngest
         {
             try
             {
-                ResourceEntry.ProcessResourceMapFile(options.ResourcePath);
+                if(options.ProcessResourceMap == true)
+                {
+                    ResourceEntry.ProcessResourceMapFile(options.ResourceMapPath);
+                }
 
                 if(options.PerformAnalysis == true)
                 {
@@ -20,11 +23,12 @@ namespace StopGerry.DataIngest
             }
             catch (Exception e)
             {
-                SimpleLogger.Error($"Exception thown when trying to process the resource file {options.ResourcePath}\n{e}");
+                SimpleLogger.Error($"Exception thown when trying to process the resource file {options.ResourceMapPath}\n{e}");
+                return -1;
             }
 
 
-            return 1;
+            return 0;
         }
     }
 }
