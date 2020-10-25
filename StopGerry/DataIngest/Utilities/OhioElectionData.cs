@@ -54,8 +54,7 @@ namespace StopGerry.DataIngest.Utilities
                         //it will add new parties and candidates to the db
                         for (int i = 6; ; i++)
                         {
-                            string candidateString;
-                            if (csv.TryGetField<string>(i, out candidateString))
+                            if (csv.TryGetField<string>(i, out string candidateString))
                             {
 
                                 //See if party exists if not add it to the db

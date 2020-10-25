@@ -18,9 +18,6 @@ namespace StopGerry.DataIngest.Utilities
         /// <param name="filePath">The properly formatted KLM file</param>
         internal static void ProcessDistrictKMLData(ResourceEntry resourceFile, stopgerryContext dbContext)
         {
-
-            var districts = dbContext.District;
-
             // This section will populate all of the districts data
             KmlFile file = KmlFile.Load(new StreamReader(resourceFile.FilePath));
             if (file.Root is Kml kml)

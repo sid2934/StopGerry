@@ -13,17 +13,19 @@ namespace StopGerry.DataIngest
             {
                 if(options.ProcessResourceMap == true)
                 {
+                    SimpleLogger.Info("Begin resource map processing");
                     ResourceEntry.ProcessResourceMapFile(options.ResourceMapPath);
                 }
 
                 if(options.PerformAnalysis == true)
                 {
+                    SimpleLogger.Info("Begin block/district analysis");
                     Analysis.AnalyzeBlocksForDistrictRelationships();
                 }
             }
             catch (Exception e)
             {
-                SimpleLogger.Error($"Exception thown when trying to process the resource file {options.ResourceMapPath}\n{e}");
+                SimpleLogger.Error($"Exception was thrown while running in ingest. {ObjectDumper.Dump(options)}\n{e}");
                 return -1;
             }
 

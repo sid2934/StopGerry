@@ -10,13 +10,13 @@ namespace StopGerry.DataIngest
     public class Options
     {
         
-        [Option('r', "process-resource-map", 
+        [Option('p', "process-resource-map", 
             Required = false, 
             Default= false,
             HelpText = "If this flag is included the resource map will be procssed. See -p|--resource-map-path to set path to desired resource map")]
         public bool ProcessResourceMap { get; set; }
 
-        [Option('p', "resource-map-path", 
+        [Option('r', "resource-map-path", 
             Required = false, 
             Default= @"resources/resourceMap.csv",
             HelpText = "The path to the desired resource map. Defaulted to ./resources/resourceMap.csv")]

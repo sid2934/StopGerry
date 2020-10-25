@@ -111,32 +111,16 @@ namespace StopGerry.Utilities
 
         private static void WriteFormattedLog(LogLevel level, string text)
         {
-            string pretext;
-            switch (level)
+            string pretext = level switch
             {
-                case LogLevel.TRACE:
-                    pretext = System.DateTime.Now.ToString(datetimeFormat) + " [TRACE]   ";
-                    break;
-                case LogLevel.INFO:
-                    pretext = System.DateTime.Now.ToString(datetimeFormat) + " [INFO]    ";
-                    break;
-                case LogLevel.DEBUG:
-                    pretext = System.DateTime.Now.ToString(datetimeFormat) + " [DEBUG]   ";
-                    break;
-                case LogLevel.WARNING:
-                    pretext = System.DateTime.Now.ToString(datetimeFormat) + " [WARNING] ";
-                    break;
-                case LogLevel.ERROR:
-                    pretext = System.DateTime.Now.ToString(datetimeFormat) + " [ERROR]   ";
-                    break;
-                case LogLevel.FATAL:
-                    pretext = System.DateTime.Now.ToString(datetimeFormat) + " [FATAL]   ";
-                    break;
-                default:
-                    pretext = "";
-                    break;
-            }
-
+                LogLevel.TRACE => System.DateTime.Now.ToString(datetimeFormat) + " [TRACE]   ",
+                LogLevel.INFO => System.DateTime.Now.ToString(datetimeFormat) + " [INFO]    ",
+                LogLevel.DEBUG => System.DateTime.Now.ToString(datetimeFormat) + " [DEBUG]   ",
+                LogLevel.WARNING => System.DateTime.Now.ToString(datetimeFormat) + " [WARNING] ",
+                LogLevel.ERROR => System.DateTime.Now.ToString(datetimeFormat) + " [ERROR]   ",
+                LogLevel.FATAL => System.DateTime.Now.ToString(datetimeFormat) + " [FATAL]   ",
+                _ => "",
+            };
             WriteLine(pretext + text);
         }
 

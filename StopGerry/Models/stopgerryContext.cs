@@ -26,12 +26,14 @@ namespace StopGerry.Models
         public virtual DbSet<CountyTime> CountyTime { get; set; }
         public virtual DbSet<Countytype> Countytype { get; set; }
         public virtual DbSet<Demographic> Demographic { get; set; }
+        public virtual DbSet<DieselSchemaMigrations> DieselSchemaMigrations { get; set; }
         public virtual DbSet<District> District { get; set; }
         public virtual DbSet<Districttype> Districttype { get; set; }
         public virtual DbSet<ElectionType> ElectionType { get; set; }
         public virtual DbSet<Electionrace> Electionrace { get; set; }
         public virtual DbSet<ElectionraceType> ElectionraceType { get; set; }
         public virtual DbSet<Party> Party { get; set; }
+        public virtual DbSet<PerformanceAnalysis> PerformanceAnalysis { get; set; }
         public virtual DbSet<PositionLevel> PositionLevel { get; set; }
         public virtual DbSet<Result> Result { get; set; }
         public virtual DbSet<State> State { get; set; }
@@ -320,6 +322,22 @@ namespace StopGerry.Models
                     .HasConstraintName("fk_populationtime_demographic");
             });
 
+            modelBuilder.Entity<DieselSchemaMigrations>(entity =>
+            {
+                entity.HasKey(e => e.Version)
+                    .HasName("__diesel_schema_migrations_pkey");
+
+                entity.ToTable("__diesel_schema_migrations");
+
+                entity.Property(e => e.Version)
+                    .HasColumnName("version")
+                    .HasMaxLength(50);
+
+                entity.Property(e => e.RunOn)
+                    .HasColumnName("run_on")
+                    .HasDefaultValueSql("CURRENT_TIMESTAMP");
+            });
+
             modelBuilder.Entity<District>(entity =>
             {
                 entity.ToTable("district");
@@ -438,6 +456,27 @@ namespace StopGerry.Models
                 entity.Property(e => e.Name)
                     .IsRequired()
                     .HasMaxLength(50);
+            });
+
+            modelBuilder.Entity<PerformanceAnalysis>(entity =>
+            {
+                entity.ToTable("performance_analysis");
+
+                entity.Property(e => e.Id)
+                    .HasColumnName("id")
+                    .HasDefaultValueSql("uuid_generate_v4()");
+
+                entity.Property(e => e.Memoryused).HasColumnName("memoryused");
+
+                entity.Property(e => e.Numberofblocks).HasColumnName("numberofblocks");
+
+                entity.Property(e => e.Numberofcoresavailable).HasColumnName("numberofcoresavailable");
+
+                entity.Property(e => e.Numberofdistricts).HasColumnName("numberofdistricts");
+
+                entity.Property(e => e.States).HasColumnName("states");
+
+                entity.Property(e => e.Totalruntime).HasColumnName("totalruntime");
             });
 
             modelBuilder.Entity<PositionLevel>(entity =>
