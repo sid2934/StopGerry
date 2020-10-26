@@ -12,5 +12,7 @@ namespace StopGerry.Models
         public int Numberofdistricts { get; set; }
         public string States { get; set; }
         public long Memoryused { get; set; }
+        public string Hostname { get; set; }
+        public int Systempagesize { get; set; }
     }
 }

@@ -1,4 +1,5 @@
 using System;
+using System.Net;
 using System.Collections.Concurrent;
 using System.Linq;
 using System.Threading.Tasks;
@@ -15,20 +16,20 @@ namespace StopGerry.DataIngest
         //ToDo: This method needs to check to see if a relationship between a block-district exists before creating a new record
         internal static void AnalyzeBlocksForDistrictRelationships()
         {
-            SimpleLogger.Info("Create DB Context");
+            SimpleLogger.Debug("Create DB Context");
             var dbContext = new stopgerryContext();
             
-            SimpleLogger.Info($"Connection status with Deja = {(dbContext.Database.CanConnect() ? "true" : "false")}");
+            SimpleLogger.Debug($"Connection status with Deja = {(dbContext.Database.CanConnect() ? "true" : "false")}");
 
             //Get all blocks
-            SimpleLogger.Info("Get all blocks");
+            SimpleLogger.Debug("Get all blocks");
             var allBlocks = dbContext.Block.ToList();
 
 
             //Get all Districts (this works for now since we only have Kansas (FIPS 20) but we will have to filter it by state later)
             //Get the centroid of the district and max distance from that point.
             //This will allow us to see if a given block's coordinates are potentially within 
-            SimpleLogger.Info("Get all districts");
+            SimpleLogger.Debug("Get all districts");
             var allDistricts = dbContext.District.ToList();
 
             PreformanceMetrics.StartTimer();
@@ -52,20 +53,23 @@ namespace StopGerry.DataIngest
                     }
                 });
             });
-
-            long memoryUsed = PreformanceMetrics.GetMemoryUsage();
+            
             PreformanceMetrics.StopTimer();
             //Create a new preformance record
-            dbContext.PerformanceAnalysis.Add(
-                new PerformanceAnalysis
+            var newPerformanceAnalysis = new PerformanceAnalysis
                 {
                     Numberofblocks = allBlocks.Count(),
                     Numberofdistricts = allDistricts.Count(),
                     Numberofcoresavailable = Environment.ProcessorCount,
                     Memoryused = PreformanceMetrics.GetMemoryUsage(),
                     States = "All",
-                    Totalruntime = PreformanceMetrics.ElapseTime
-                });
+                    Totalruntime = PreformanceMetrics.ElapseTime,
+                    Hostname = Dns.GetHostName(),
+                    Systempagesize = Environment.SystemPageSize
+
+                };
+            SimpleLogger.Info(ObjectDumper.Dump(newPerformanceAnalysis));
+            dbContext.PerformanceAnalysis.Add(newPerformanceAnalysis);
             //dbContext.AddRange(newResults);
             dbContext.SaveChanges();
         }

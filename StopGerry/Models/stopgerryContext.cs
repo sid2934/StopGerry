@@ -466,6 +466,11 @@ namespace StopGerry.Models
                     .HasColumnName("id")
                     .HasDefaultValueSql("uuid_generate_v4()");
 
+                entity.Property(e => e.Hostname)
+                    .IsRequired()
+                    .HasColumnName("hostname")
+                    .HasMaxLength(60);
+
                 entity.Property(e => e.Memoryused).HasColumnName("memoryused");
 
                 entity.Property(e => e.Numberofblocks).HasColumnName("numberofblocks");
@@ -474,7 +479,11 @@ namespace StopGerry.Models
 
                 entity.Property(e => e.Numberofdistricts).HasColumnName("numberofdistricts");
 
-                entity.Property(e => e.States).HasColumnName("states");
+                entity.Property(e => e.States)
+                    .IsRequired()
+                    .HasColumnName("states");
+
+                entity.Property(e => e.Systempagesize).HasColumnName("systempagesize");
 
                 entity.Property(e => e.Totalruntime).HasColumnName("totalruntime");
             });

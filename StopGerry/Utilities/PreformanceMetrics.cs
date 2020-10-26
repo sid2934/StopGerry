@@ -1,5 +1,6 @@
 using System;
 using System.Diagnostics;
+using StopGerry.Models;
 
 namespace StopGerry.Utilities
 {
@@ -39,14 +40,20 @@ namespace StopGerry.Utilities
         internal static void ResetTimer()
         {
             _stopwatch.Stop();
-            SimpleLogger.Info($"PreformanceMetrics Timer Stopped. Elapsed Time: {ElapseTime}.");
+            SimpleLogger.Info($"PreformanceMetrics Timer Restarted. Elapsed Time: {ElapseTime}.");
             _stopwatch.Restart();
         }
 
         internal static long GetMemoryUsage()
         {
-            SimpleLogger.Info("PreformanceMetrics Timer Stopped.");
-            return GC.GetTotalMemory(true) / 100000L;
+            long megabytesUsed = GC.GetTotalMemory(true) / 100000L;
+            SimpleLogger.Info($"GetMemoryUsage called: {megabytesUsed}MB");
+            return megabytesUsed;
+        }
+
+        internal static void GetProcessorInfo()
+        {
+                
         }
     }
 }

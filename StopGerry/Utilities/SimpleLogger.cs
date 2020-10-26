@@ -1,4 +1,5 @@
 using System;
+using System.Net;
 
 namespace StopGerry.Utilities
 {
@@ -6,7 +7,7 @@ namespace StopGerry.Utilities
     {
         private const string FILE_EXT = ".log";
         private static readonly string datetimeFormat = "yyyy-MM-dd HH:mm:ss.fff";
-        private static readonly string logFilename = System.Reflection.Assembly.GetExecutingAssembly().GetName().Name + FILE_EXT;
+        private static readonly string logFilename = System.Reflection.Assembly.GetExecutingAssembly().GetName().Name + $"_{Dns.GetHostName()}" + FILE_EXT;
 
         private static bool _writeToConsole;
 
