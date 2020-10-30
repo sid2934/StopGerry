@@ -11,7 +11,7 @@
             "preLaunchTask": "build",
             // If you have changed target frameworks, make sure to update the program path.
             "program": "${workspaceFolder}/bin/Debug/netcoreapp3.1/StopGerry.dll",
-            "args": ["ingest", "--resource-map-path", "D:\\dev\\workspaces\\FuckGerry\\StopGerry\\resources\\resourceMap.csv", "-a"],
+            "args": ["ingest", "-p", "--resource-map-path", "D:\\dev\\workspaces\\FuckGerry\\StopGerry\\resources\\resourceMap.csv"],
             "cwd": "${workspaceFolder}",
             // For more information about the 'console' field, see https://aka.ms/VSCode-CS-LaunchJson-Console
             "console": "internalConsole",
