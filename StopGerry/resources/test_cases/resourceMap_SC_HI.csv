@@ -1,0 +1,21 @@
+﻿FilePath,FileType,RecordType,RecordDescription,FileSource,DateOfNote,Skip
+resources\csv\stateData.csv,csv,state,basic state data,previous version of DB,,false
+resources\csv\countyData.csv,csv,county,basic county data,previous version of DB,,false
+resources\kml\state_borders\cb_2018_us_state_20m.kml,kml,state,state borders,https://www2.census.gov/geo/tiger/GENZ2018/kml/cb_2018_us_state_20m.zip,,false
+resources\kml\state_congressional_districts\cb_2018_us_cd116_20m.kml,kml,district,CD116,'https://www2.census.gov/geo/tiger/GENZ2018/kml/cb_2018_us_cd116_20m.zip',,false
+
+resources\csv\Ksgeo2010.csv,csv,block,geo header,https://www2.census.gov/census_2010/04-Summary_File_1/Kansas/ks2010.sf1.zip,4/1/2010,true
+resources\kml\Kansas\,kml,district,state legislative districts,'https://www2.census.gov/geo/tiger/GENZ2018/kml',,true
+
+resources\csv\Ohgeo2010.csv,csv,block,geo header,https://www2.census.gov/census_2010/04-Summary_File_1/Ohio/oh2010.sf1.zip,4/1/2010,true
+resources\kml\Ohio\,kml,district,state legislative districts,'https://www2.census.gov/geo/tiger/GENZ2018/kml',,true
+resources\election_data\Ohio,csv,county,Ohio-2016-President of the United States of America-General Election,'https://www.ohiosos.gov/globalassets/elections/2016/gen/county.xlsx',"November 8, 2016",true
+
+resources\csv\Cageo2010.csv,csv,block,geo header,https://www2.census.gov/census_2010/04-Summary_File_1/California/ca2010.sf1.zip,4/1/2010,true
+resources\kml\California\,kml,district,state legislative districts,'https://www2.census.gov/geo/tiger/GENZ2018/kml',,true
+
+resources\csv\Higeo2010.csv,csv,block,geo header,https://www2.census.gov/census_2010/04-Summary_File_1/Hawaii/hi2010.sf1.zip,4/1/2010,false
+resources\kml\Hawaii\,kml,district,state legislative districts,'https://www2.census.gov/geo/tiger/GENZ2018/kml',,false
+
+resources\csv\Scgeo2010.csv,csv,block,geo header,https://www2.census.gov/census_2010/04-Summary_File_1/South_Carolina/sc2010.sf1.zip,4/1/2010,false
+resources\kml\SouthCarolina\,kml,district,state legislative districts,'https://www2.census.gov/geo/tiger/GENZ2018/kml',,false
