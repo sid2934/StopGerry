@@ -18,7 +18,7 @@ namespace StopGerry.DataIngest
         {
             SimpleLogger.Debug("Create DB Context");
             var dbContext = new stopgerryContext();
-            
+
             SimpleLogger.Debug($"Connection status with Deja = {(dbContext.Database.CanConnect() ? "true" : "false")}");
 
             //Get all blocks
@@ -35,12 +35,21 @@ namespace StopGerry.DataIngest
             PreformanceMetrics.StartTimer();
 
             var newResults = new ConcurrentBag<BlockDistrictTime>();
+            ulong skippedComparisons = 0;
+            const bool ENABLE_STATE_CHECK = true;
 
             Parallel.ForEach(allBlocks, block =>
             {
                 Parallel.ForEach(allDistricts, district =>
                 {
-                    if (district.Border.Contains(block.Coordinates))
+                    var blockState = block.Id.Substring(0,2);
+                    var districtState = district.Id.Substring(district.Id.IndexOf('|') + 1, 2);
+
+                    if (ENABLE_STATE_CHECK && !blockState.Equals(districtState))
+                    {
+                        ++skippedComparisons;
+                    }
+                    else if (district.Border.Contains(block.Coordinates))
                     {
                         //Create new Block_District_Time
                         newResults.Add(new BlockDistrictTime()
@@ -60,6 +69,7 @@ namespace StopGerry.DataIngest
                 {
                     Numberofblocks = allBlocks.Count(),
                     Numberofdistricts = allDistricts.Count(),
+                    Numberofskippedcomparisons = skippedComparisons,
                     Numberofcoresavailable = Environment.ProcessorCount,
                     Memoryused = PreformanceMetrics.GetMemoryUsage(),
                     States = "All",
