@@ -178,6 +178,8 @@ CREATE TABLE IF NOT EXISTS Result
     ElectionRaceId uuid NOT NULL,
     CandidateId INT NOT NULL,
     NumberOfVotesRecieved INT NOT NULL,
+    ResultResolution VARCHAR(8) NOT NULL,
+    Precinct VARCHAR(255) NOT NULL,
     Source VARCHAR(255) NOT NULL,
 
     CONSTRAINT FK_ElectionRace_Result FOREIGN KEY (ElectionRaceId)  REFERENCES ElectionRace(Id),
