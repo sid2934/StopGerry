@@ -38,8 +38,8 @@ namespace StopGerry
 
 
 
-            SimpleLogger.Start(true);
-
+            SimpleLogger.Start();
+            
             CommandLine.Parser.Default.ParseArguments<DataIngest.Options>(args)
                 .MapResult(
                     (DataIngest.Options opts) => DataIngest.RequestHandler.HandleRequest(opts),

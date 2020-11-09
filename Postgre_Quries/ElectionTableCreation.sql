@@ -85,7 +85,7 @@ VALUES
     'United State House of Representatives', 1
 ),
 (
-    'vernor', 2
+    'Governor', 2
 ),
 (
     'State Senate', 2

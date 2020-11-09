@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Net;
 
 namespace StopGerry.Utilities
@@ -9,17 +10,24 @@ namespace StopGerry.Utilities
         private static readonly string datetimeFormat = "yyyy-MM-dd HH:mm:ss.fff";
         private static readonly string logFilename = System.Reflection.Assembly.GetExecutingAssembly().GetName().Name + $"_{Dns.GetHostName()}" + FILE_EXT;
 
+        private static short _loggingLevel = 0;
+
+        internal static void SetLoggingLevel(short verbosityLevel, bool writeToConsole)
+        {
+            _loggingLevel = verbosityLevel > loggingLevelMap.Count ? (short)loggingLevelMap.Count : verbosityLevel;
+            _writeToConsole = writeToConsole;
+        }
+
         private static bool _writeToConsole;
 
         /// <summary>
         /// Starts the SimpleLogger
         /// If log file does not exist, it will be created automatically.
         /// </summary>
-        public static void Start(bool writeToConsole = false)
+        public static void Start()
         {
 
             // Log file header line
-            _writeToConsole = writeToConsole;
             WriteLine(System.DateTime.Now.ToString(datetimeFormat) + " Logging Started", false);
         }
 
@@ -90,23 +98,26 @@ namespace StopGerry.Utilities
 
         private static void WriteLine(string text, bool append = true)
         {
-            try
+            if (loggingLevelMap[_loggingLevel].Contains(level))
             {
-                using (System.IO.StreamWriter writer = new System.IO.StreamWriter(logFilename, append, System.Text.Encoding.UTF8))
+                try
                 {
-                    if (!string.IsNullOrEmpty(text))
+                    using (System.IO.StreamWriter writer = new System.IO.StreamWriter(logFilename, append, System.Text.Encoding.UTF8))
                     {
-                        writer.WriteLine(text);
+                        if (!string.IsNullOrEmpty(text))
+                        {
+                            writer.WriteLine(text);
+                        }
+                    }
+                    if (_writeToConsole)
+                    {
+                        Console.WriteLine(text);
                     }
                 }
-                if(_writeToConsole)
+                catch
                 {
-                    Console.WriteLine(text);
+                    throw;
                 }
-            }
-            catch
-            {
-                throw;
             }
         }
 
@@ -123,7 +134,38 @@ namespace StopGerry.Utilities
                 _ => "",
             };
             WriteLine(pretext + text);
+
         }
+
+
+        private static readonly Dictionary<short, List<LogLevel>> loggingLevelMap = new Dictionary<short, List<LogLevel>>()
+        {
+            {0, new List<LogLevel>()
+                {
+                    {LogLevel.FATAL},
+                    {LogLevel.ERROR},
+                }
+            },
+            {1, new List<LogLevel>()
+                {
+                    {LogLevel.FATAL},
+                    {LogLevel.ERROR},
+                    {LogLevel.WARNING},
+                    {LogLevel.DEBUG},
+                }
+            },
+            {2, new List<LogLevel>()
+                {
+                    {LogLevel.FATAL},
+                    {LogLevel.ERROR},
+                    {LogLevel.WARNING},
+                    {LogLevel.DEBUG},
+                    {LogLevel.INFO},
+                    {LogLevel.TRACE},
+                }
+            },
+        };
+
 
         [System.Flags]
         private enum LogLevel

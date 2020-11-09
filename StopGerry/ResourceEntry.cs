@@ -131,6 +131,10 @@ namespace StopGerry
                         }
                         break;
 
+                    case "openelection-list":
+                        OpenElectionsUtilities.ProcessOpenElections(this, dbContext);
+                        break;
+
                     default:
                         SimpleLogger.Info($"Resource File {FilePath} could not be processesed as the \"record_type\" is invalid");
                         break;

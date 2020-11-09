@@ -3,26 +3,17 @@ using System.IO;
 using CommandLine;
 using StopGerry.Utilities;
 
-namespace StopGerry.DataIngest
+namespace StopGerry.Research
 {
     public static class RequestHandler
     {
         public static int HandleRequest(Options options)
         {
-            SimpleLogger.SetLoggingLevel(options.Verbosity, options.LogToConsole);
-
             try
             {
                 if(options.ProcessResourceMap == true)
                 {
-                    SimpleLogger.Info("Begin resource map processing");
-                    ResourceEntry.ProcessResourceMapFile(options.ResourceMapPath);
-                }
-
-                if(options.PerformAnalysis == true)
-                {
-                    SimpleLogger.Info("Begin block/district analysis");
-                    Analysis.AnalyzeBlocksForDistrictRelationships();
+                    return 0;   
                 }
             }
             catch (Exception e)
