@@ -98,46 +98,45 @@ namespace StopGerry.Utilities
 
         private static void WriteLine(string text, bool append = true)
         {
-            if (loggingLevelMap[_loggingLevel].Contains(level))
+            try
             {
-                try
+                using (System.IO.StreamWriter writer = new System.IO.StreamWriter(logFilename, append, System.Text.Encoding.UTF8))
                 {
-                    using (System.IO.StreamWriter writer = new System.IO.StreamWriter(logFilename, append, System.Text.Encoding.UTF8))
+                    if (!string.IsNullOrEmpty(text))
                     {
-                        if (!string.IsNullOrEmpty(text))
-                        {
-                            writer.WriteLine(text);
-                        }
-                    }
-                    if (_writeToConsole)
-                    {
-                        Console.WriteLine(text);
+                        writer.WriteLine(text);
                     }
                 }
-                catch
+                if(_writeToConsole)
                 {
-                    throw;
+                    Console.WriteLine(text);
                 }
+            }
+            catch
+            {
+                throw;
             }
         }
 
         private static void WriteFormattedLog(LogLevel level, string text)
         {
-            string pretext = level switch
+            if(loggingLevelMap[_loggingLevel].Contains(level))
             {
-                LogLevel.TRACE => System.DateTime.Now.ToString(datetimeFormat) + " [TRACE]   ",
-                LogLevel.INFO => System.DateTime.Now.ToString(datetimeFormat) + " [INFO]    ",
-                LogLevel.DEBUG => System.DateTime.Now.ToString(datetimeFormat) + " [DEBUG]   ",
-                LogLevel.WARNING => System.DateTime.Now.ToString(datetimeFormat) + " [WARNING] ",
-                LogLevel.ERROR => System.DateTime.Now.ToString(datetimeFormat) + " [ERROR]   ",
-                LogLevel.FATAL => System.DateTime.Now.ToString(datetimeFormat) + " [FATAL]   ",
-                _ => "",
-            };
-            WriteLine(pretext + text);
-
+                string pretext = level switch
+                {
+                    LogLevel.TRACE => System.DateTime.Now.ToString(datetimeFormat) + " [TRACE]   ",
+                    LogLevel.INFO => System.DateTime.Now.ToString(datetimeFormat) + " [INFO]    ",
+                    LogLevel.DEBUG => System.DateTime.Now.ToString(datetimeFormat) + " [DEBUG]   ",
+                    LogLevel.WARNING => System.DateTime.Now.ToString(datetimeFormat) + " [WARNING] ",
+                    LogLevel.ERROR => System.DateTime.Now.ToString(datetimeFormat) + " [ERROR]   ",
+                    LogLevel.FATAL => System.DateTime.Now.ToString(datetimeFormat) + " [FATAL]   ",
+                    _ => "",
+                };
+                WriteLine(pretext + text);
+            }
         }
 
-
+        
         private static readonly Dictionary<short, List<LogLevel>> loggingLevelMap = new Dictionary<short, List<LogLevel>>()
         {
             {0, new List<LogLevel>()

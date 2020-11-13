@@ -18,6 +18,9 @@ namespace StopGerry.Utilities
         }
 
 
+        /// <summary>
+        /// Starts or resumes the timer
+        /// </summary>
         internal static void StartTimer()
         {
             SimpleLogger.Info("PreformanceMetrics Timer Started.");
@@ -30,13 +33,20 @@ namespace StopGerry.Utilities
                 _stopwatch.Start();
             }
         }
+        
 
+        /// <summary>
+        /// Stops the timer, but does not reset the current time
+        /// </summary>
         internal static void StopTimer()
         {
             _stopwatch.Stop();
             SimpleLogger.Info($"PreformanceMetrics Timer Stopped. Elapsed Time: {ElapseTime}.");
         }
 
+        /// <summary>
+        /// Stops the timer, AND reset the current time
+        /// </summary>
         internal static void ResetTimer()
         {
             _stopwatch.Stop();

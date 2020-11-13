@@ -26,7 +26,6 @@ namespace StopGerry.Models
         public virtual DbSet<CountyTime> CountyTime { get; set; }
         public virtual DbSet<Countytype> Countytype { get; set; }
         public virtual DbSet<Demographic> Demographic { get; set; }
-        public virtual DbSet<DieselSchemaMigrations> DieselSchemaMigrations { get; set; }
         public virtual DbSet<District> District { get; set; }
         public virtual DbSet<Districttype> Districttype { get; set; }
         public virtual DbSet<ElectionType> ElectionType { get; set; }
@@ -322,22 +321,6 @@ namespace StopGerry.Models
                     .HasConstraintName("fk_populationtime_demographic");
             });
 
-            modelBuilder.Entity<DieselSchemaMigrations>(entity =>
-            {
-                entity.HasKey(e => e.Version)
-                    .HasName("__diesel_schema_migrations_pkey");
-
-                entity.ToTable("__diesel_schema_migrations");
-
-                entity.Property(e => e.Version)
-                    .HasColumnName("version")
-                    .HasMaxLength(50);
-
-                entity.Property(e => e.RunOn)
-                    .HasColumnName("run_on")
-                    .HasDefaultValueSql("CURRENT_TIMESTAMP");
-            });
-
             modelBuilder.Entity<District>(entity =>
             {
                 entity.ToTable("district");
@@ -432,7 +415,7 @@ namespace StopGerry.Models
                 entity.Property(e => e.Description)
                     .IsRequired()
                     .HasColumnName("description")
-                    .HasMaxLength(50);
+                    .HasMaxLength(255);
 
                 entity.Property(e => e.Positionlevelid).HasColumnName("positionlevelid");
 
@@ -513,6 +496,16 @@ namespace StopGerry.Models
                 entity.Property(e => e.Electionraceid).HasColumnName("electionraceid");
 
                 entity.Property(e => e.Numberofvotesrecieved).HasColumnName("numberofvotesrecieved");
+
+                entity.Property(e => e.Precinct)
+                    .IsRequired()
+                    .HasColumnName("precinct")
+                    .HasMaxLength(255);
+
+                entity.Property(e => e.Resultresolution)
+                    .IsRequired()
+                    .HasColumnName("resultresolution")
+                    .HasMaxLength(8);
 
                 entity.Property(e => e.Source)
                     .IsRequired()

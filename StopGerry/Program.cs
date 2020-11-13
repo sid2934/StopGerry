@@ -40,9 +40,10 @@ namespace StopGerry
 
             SimpleLogger.Start();
             
-            CommandLine.Parser.Default.ParseArguments<DataIngest.Options>(args)
+            CommandLine.Parser.Default.ParseArguments<DataIngest.Options, Research.Options>(args)
                 .MapResult(
                     (DataIngest.Options opts) => DataIngest.RequestHandler.HandleRequest(opts),
+                    (Research.Options opts) => Research.RequestHandler.HandleRequest(opts),
                     errs => { Console.WriteLine($"Errors {errs}"); return 1; }
                 );
 

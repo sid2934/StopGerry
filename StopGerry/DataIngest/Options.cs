@@ -41,6 +41,11 @@ namespace StopGerry.DataIngest
             HelpText = "If -a flag is set, the initial relationship analysis will be ran")]
         public bool PerformAnalysis { get; set; }
 
+        [Option('s', "analysis-states", 
+            Required = false, 
+            Default= false,
+            HelpText = "A csv list of each state to do analysis on given by the state abbreviation")]
+        public string AnalysisStates { get; set; }
     }
 
 }

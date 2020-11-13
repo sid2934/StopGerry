@@ -167,6 +167,8 @@ namespace StopGerry.Models.OpenStandard
                         Candidateid = LinkedCandidate.Id,
                         Numberofvotesrecieved = int.Parse(votes, NumberStyles.AllowThousands),
                         Electionraceid = LinkedElectionrace.Id,
+                        Resultresolution = Info.ResultsResolution,
+                        Precinct = Info.ResultsResolution == "precinct" ? precinct : null,
                         Source = Info.Url,
                     });
                 }
@@ -179,6 +181,7 @@ namespace StopGerry.Models.OpenStandard
             {
                 SimpleLogger.Error($"Failed to link the election data {ObjectDumper.Dump(this)}\n");
             };
+            dbContext.SaveChanges();
             //Check if this election already exists.
 
         }

@@ -11,10 +11,11 @@ namespace StopGerry.Research
         {
             try
             {
-                if(options.ProcessResourceMap == true)
+                if(options.EfficiencyGap == true)
                 {
-                    return 0;   
+                    //var dbContext = new dbContext();
                 }
+                
             }
             catch (Exception e)
             {

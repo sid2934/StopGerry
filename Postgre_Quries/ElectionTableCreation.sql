@@ -163,7 +163,7 @@ DROP TABLE IF EXISTS Candidate;
 CREATE TABLE IF NOT EXISTS Candidate
 (
     Id SERIAL PRIMARY KEY, -- Primary Key column
-    "Name" VARCHAR(50) NOT NULL,
+    Name VARCHAR(50) NOT NULL,
     PartyId INT NOT NULL,
     DateOfBirth DATE NOT NULL,
 

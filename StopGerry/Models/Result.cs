@@ -9,6 +9,8 @@ namespace StopGerry.Models
         public Guid Electionraceid { get; set; }
         public int Candidateid { get; set; }
         public int Numberofvotesrecieved { get; set; }
+        public string Resultresolution { get; set; }
+        public string Precinct { get; set; }
         public string Source { get; set; }
 
         public virtual Candidate Candidate { get; set; }

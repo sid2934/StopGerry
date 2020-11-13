@@ -22,7 +22,7 @@ namespace StopGerry.DataIngest
                 if(options.PerformAnalysis == true)
                 {
                     SimpleLogger.Info("Begin block/district analysis");
-                    Analysis.AnalyzeBlocksForDistrictRelationships();
+                    Analysis.AnalyzeBlocksForDistrictRelationships(options.AnalysisStates);
                 }
             }
             catch (Exception e)
