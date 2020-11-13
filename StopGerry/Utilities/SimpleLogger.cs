@@ -10,11 +10,11 @@ namespace StopGerry.Utilities
         private static readonly string datetimeFormat = "yyyy-MM-dd HH:mm:ss.fff";
         private static readonly string logFilename = System.Reflection.Assembly.GetExecutingAssembly().GetName().Name + $"_{Dns.GetHostName()}" + FILE_EXT;
 
-        private static short _loggingLevel = 0;
+        private static int _loggingLevel = 0;
 
-        internal static void SetLoggingLevel(short verbosityLevel, bool writeToConsole)
+        internal static void SetLoggingLevel(int verbosityLevel, bool writeToConsole)
         {
-            _loggingLevel = verbosityLevel > loggingLevelMap.Count ? (short)loggingLevelMap.Count : verbosityLevel;
+            _loggingLevel = verbosityLevel > loggingLevelMap.Count ? loggingLevelMap.Count : verbosityLevel;
             _writeToConsole = writeToConsole;
         }
 
@@ -137,7 +137,7 @@ namespace StopGerry.Utilities
         }
 
         
-        private static readonly Dictionary<short, List<LogLevel>> loggingLevelMap = new Dictionary<short, List<LogLevel>>()
+        private static readonly Dictionary<int, List<LogLevel>> loggingLevelMap = new Dictionary<int, List<LogLevel>>()
         {
             {0, new List<LogLevel>()
                 {
