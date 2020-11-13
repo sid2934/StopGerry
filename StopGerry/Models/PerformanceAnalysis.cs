@@ -14,5 +14,6 @@ namespace StopGerry.Models
         public long Memoryused { get; set; }
         public string Hostname { get; set; }
         public int Systempagesize { get; set; }
+        public string Jobid { get; set; }
     }
 }

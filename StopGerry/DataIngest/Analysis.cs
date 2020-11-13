@@ -15,7 +15,7 @@ namespace StopGerry.DataIngest
         //ToDo: If only new blocks were added then only they need to be processed,
         //      if districts were added new relationships need to be found for existing blocks if the timeframe overlaps
         //ToDo: This method needs to check to see if a relationship between a block-district exists before creating a new record
-        internal static void AnalyzeBlocksForDistrictRelationships(string states)
+        internal static void AnalyzeBlocksForDistrictRelationships(string states, string jobId = null)
         {
             
             SimpleLogger.Debug("Create DB Context");
@@ -29,7 +29,7 @@ namespace StopGerry.DataIngest
             List<string> statesToProcess;    
 
 
-            if(states == null)
+            if(states == null || states == "All")
             {
                 SimpleLogger.Debug($"No states were listed using the -s argument so all states will be processed");
                 //Generate a List<string with all stats fips codes
@@ -104,7 +104,8 @@ namespace StopGerry.DataIngest
                     States = states,
                     Totalruntime = PreformanceMetrics.ElapseTime,
                     Hostname = Dns.GetHostName(),
-                    Systempagesize = Environment.SystemPageSize
+                    Systempagesize = Environment.SystemPageSize,
+                    Jobid = jobId,
                 };
             SimpleLogger.Info(ObjectDumper.Dump(newPerformanceAnalysis));
             dbContext.PerformanceAnalysis.Add(newPerformanceAnalysis);

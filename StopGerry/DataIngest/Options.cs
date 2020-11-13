@@ -14,7 +14,7 @@ namespace StopGerry.DataIngest
             Required = false, 
             Default= 0,
             HelpText = "Set output to verbose messages level. usage -v|--verbosity [LOGGING_LEVEL] (valid values 0,1,2)")]
-        public short Verbosity { get; set; }
+        public int Verbosity { get; set; }
 
 
         [Option('c', "log-to-console", 
@@ -43,9 +43,15 @@ namespace StopGerry.DataIngest
 
         [Option('s', "analysis-states", 
             Required = false, 
-            Default= false,
+            Default= "All",
             HelpText = "A csv list of each state to do analysis on given by the state abbreviation")]
         public string AnalysisStates { get; set; }
+
+        [Option('j', "job-id", 
+            Required = false, 
+            Default= null,
+            HelpText = "The job id for this run, will be used in certian outputs")]
+        public string JobId { get; set; }
     }
 
 }
