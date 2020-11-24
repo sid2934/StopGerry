@@ -54,7 +54,8 @@ namespace StopGerry.DataIngest.Utilities
 
                     var newDistrict = new District()
                     {
-                        Id = currentDistrictId,
+                        Districtcode = Regex.Replace(placemark.Name, @"\<[^\>]*\>", ""),
+                        Year = Convert.ToInt32(when),
                         Description = placemark.Description.Text,
                         Source = resourceFile.FileSource,
                         Districttypeid = newDistrictTypeId

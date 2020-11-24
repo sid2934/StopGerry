@@ -172,7 +172,9 @@ VALUES
 DROP TABLE IF EXISTS District;
 CREATE TABLE IF NOT EXISTS District
 (
-    Id VARCHAR(50) NOT NULL PRIMARY KEY,
+    Id uuid PRIMARY KEY DEFAULT UUID_GENERATE_V4(),
+    Year INT NOT NULL,
+    DistrictCode VARCHAR(6) NOT NULL,
     Description text NOT NULL,
     Source text NOT NULL,
     DistrictTypeId INT NOT NULL,
@@ -190,7 +192,6 @@ CREATE TABLE IF NOT EXISTS District_Time
     TimeStart DATE NOT NULL,
     TimeEnd DATE NULL,
 
-    CONSTRAINT FK_DistrictTime_District FOREIGN KEY (DistrictId)  REFERENCES District(Id)
 );
 
 
@@ -201,7 +202,7 @@ CREATE TABLE IF NOT EXISTS Block_District_Time
     BlockId VARCHAR(50) NOT NULL, -- Primary Key column
     TimeStart DATE NOT NULL,
     TimeEnd DATE NULL,
-    DistrictId VARCHAR(50) NOT NULL,
+    DistrictId uuid NOT NULL,
 
     CONSTRAINT FK_District_Block_BlockId FOREIGN KEY (BlockId)  REFERENCES Block(Id),
     CONSTRAINT FK_District_Block_DistrictId FOREIGN KEY (DistrictId)  REFERENCES District(Id)

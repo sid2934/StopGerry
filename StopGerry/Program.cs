@@ -38,7 +38,7 @@ namespace StopGerry
 
 
 
-            SimpleLogger.Start();
+            
             
             CommandLine.Parser.Default.ParseArguments<DataIngest.Options, Research.Options>(args)
                 .MapResult(
@@ -47,9 +47,6 @@ namespace StopGerry
                     errs => { Console.WriteLine($"Errors {errs}"); return 1; }
                 );
 
-
-
-            SimpleLogger.Stop();
         }
 
     }

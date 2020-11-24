@@ -55,7 +55,7 @@ namespace StopGerry.DataIngest
                 SimpleLogger.Debug($"Get districts for state: {state} [FIPS]");
 
                 
-                var districtsToProcess = dbContext.District.Where(d => d.Id.Substring(d.Id.IndexOf("|") + 1, 2) == state).ToList();
+                var districtsToProcess = dbContext.District.Where(d => d.Districtcode.Substring(0, 2) == state).ToList();
 
 
                 SimpleLogger.Debug($"Selected {districtsToProcess.Count} districts for state: {state} this run");
@@ -74,7 +74,7 @@ namespace StopGerry.DataIngest
                     Parallel.ForEach(districtsToProcess, district =>
                     {
                         var blockState = block.Id.Substring(0,2);
-                        var districtState = district.Id.Substring(district.Id.IndexOf('|') + 1, 2);
+                        var districtState = district.Districtcode.Substring(0, 2);
 
                         if (district.Border.Contains(block.Coordinates))
                         {

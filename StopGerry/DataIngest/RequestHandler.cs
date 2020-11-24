@@ -9,8 +9,11 @@ namespace StopGerry.DataIngest
     {
         public static int HandleRequest(Options options)
         {
+            
             SimpleLogger.SetLoggingLevel(options.Verbosity, options.LogToConsole);
-
+            SimpleLogger.SetJobId(options.JobId);
+            SimpleLogger.Start();
+             
             try
             {
                 if(options.ProcessResourceMap == true)
@@ -31,7 +34,7 @@ namespace StopGerry.DataIngest
                 return -1;
             }
 
-
+            SimpleLogger.Stop();
             return 0;
         }
     }

@@ -9,7 +9,6 @@ resources\kml\Kansas\,kml,district,state legislative districts,'https://www2.cen
 
 resources\csv\Ohgeo2010.csv,csv,block,geo header,https://www2.census.gov/census_2010/04-Summary_File_1/Ohio/oh2010.sf1.zip,4/1/2010,true
 resources\kml\Ohio\,kml,district,state legislative districts,'https://www2.census.gov/geo/tiger/GENZ2018/kml',,true
-resources\election_data\Ohio,csv,county,Ohio-2016-President of the United States of America-General Election,'https://www.ohiosos.gov/globalassets/elections/2016/gen/county.xlsx',"November 8, 2016",true
 
 resources\csv\Cageo2010.csv,csv,block,geo header,https://www2.census.gov/census_2010/04-Summary_File_1/California/ca2010.sf1.zip,4/1/2010,true
 resources\kml\California\,kml,district,state legislative districts,'https://www2.census.gov/geo/tiger/GENZ2018/kml',,true
@@ -19,4 +18,5 @@ resources\kml\Hawaii\,kml,district,state legislative districts,'https://www2.cen
 
 resources\csv\Scgeo2010.csv,csv,block,geo header,https://www2.census.gov/census_2010/04-Summary_File_1/South_Carolina/sc2010.sf1.zip,4/1/2010,true
 resources\kml\SouthCarolina\,kml,district,state legislative districts,'https://www2.census.gov/geo/tiger/GENZ2018/kml',,true
+
 resources\election_data\openelectionsproject.csv,csv,openelection-list,OpenElection-List,"","",false

@@ -130,10 +130,7 @@ namespace StopGerry.Models
                     .HasColumnName("blockid")
                     .HasMaxLength(50);
 
-                entity.Property(e => e.Districtid)
-                    .IsRequired()
-                    .HasColumnName("districtid")
-                    .HasMaxLength(50);
+                entity.Property(e => e.Districtid).HasColumnName("districtid");
 
                 entity.Property(e => e.Timeend)
                     .HasColumnName("timeend")
@@ -188,6 +185,7 @@ namespace StopGerry.Models
 
                 entity.Property(e => e.Name)
                     .IsRequired()
+                    .HasColumnName("name")
                     .HasMaxLength(50);
 
                 entity.Property(e => e.Partyid).HasColumnName("partyid");
@@ -327,7 +325,7 @@ namespace StopGerry.Models
 
                 entity.Property(e => e.Id)
                     .HasColumnName("id")
-                    .HasMaxLength(50);
+                    .HasDefaultValueSql("uuid_generate_v4()");
 
                 entity.Property(e => e.Border).HasColumnName("border");
 
@@ -335,11 +333,18 @@ namespace StopGerry.Models
                     .IsRequired()
                     .HasColumnName("description");
 
+                entity.Property(e => e.Districtcode)
+                    .IsRequired()
+                    .HasColumnName("districtcode")
+                    .HasMaxLength(6);
+
                 entity.Property(e => e.Districttypeid).HasColumnName("districttypeid");
 
                 entity.Property(e => e.Source)
                     .IsRequired()
                     .HasColumnName("source");
+
+                entity.Property(e => e.Year).HasColumnName("year");
 
                 entity.HasOne(d => d.Districttype)
                     .WithMany(p => p.District)
@@ -415,7 +420,7 @@ namespace StopGerry.Models
                 entity.Property(e => e.Description)
                     .IsRequired()
                     .HasColumnName("description")
-                    .HasMaxLength(255);
+                    .HasMaxLength(50);
 
                 entity.Property(e => e.Positionlevelid).HasColumnName("positionlevelid");
 
@@ -453,6 +458,10 @@ namespace StopGerry.Models
                     .IsRequired()
                     .HasColumnName("hostname")
                     .HasMaxLength(60);
+
+                entity.Property(e => e.Jobid)
+                    .HasColumnName("jobid")
+                    .HasMaxLength(255);
 
                 entity.Property(e => e.Memoryused).HasColumnName("memoryused");
 
@@ -492,6 +501,10 @@ namespace StopGerry.Models
                     .HasDefaultValueSql("uuid_generate_v4()");
 
                 entity.Property(e => e.Candidateid).HasColumnName("candidateid");
+
+                entity.Property(e => e.Districtcode)
+                    .HasColumnName("districtcode")
+                    .HasMaxLength(6);
 
                 entity.Property(e => e.Electionraceid).HasColumnName("electionraceid");
 

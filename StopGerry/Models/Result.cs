@@ -11,6 +11,7 @@ namespace StopGerry.Models
         public int Numberofvotesrecieved { get; set; }
         public string Resultresolution { get; set; }
         public string Precinct { get; set; }
+        public string Districtcode { get; set; }
         public string Source { get; set; }
 
         public virtual Candidate Candidate { get; set; }

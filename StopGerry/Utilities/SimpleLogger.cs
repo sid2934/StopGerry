@@ -8,14 +8,19 @@ namespace StopGerry.Utilities
     {
         private const string FILE_EXT = ".log";
         private static readonly string datetimeFormat = "yyyy-MM-dd HH:mm:ss.fff";
-        private static readonly string logFilename = System.Reflection.Assembly.GetExecutingAssembly().GetName().Name + $"_{Dns.GetHostName()}" + FILE_EXT;
-
+        private static string logFilename => System.Reflection.Assembly.GetExecutingAssembly().GetName().Name + $"_{Dns.GetHostName()}{_jobid}" + FILE_EXT;
+        private static string _jobid = "";
         private static int _loggingLevel = 0;
 
         internal static void SetLoggingLevel(int verbosityLevel, bool writeToConsole)
         {
             _loggingLevel = verbosityLevel > loggingLevelMap.Count ? loggingLevelMap.Count : verbosityLevel;
             _writeToConsole = writeToConsole;
+        }
+
+        internal static void SetJobId(string jobId)
+        {
+            _jobid = "_" + jobId;
         }
 
         private static bool _writeToConsole;
@@ -107,7 +112,7 @@ namespace StopGerry.Utilities
                         writer.WriteLine(text);
                     }
                 }
-                if(_writeToConsole)
+                if (_writeToConsole)
                 {
                     Console.WriteLine(text);
                 }
@@ -120,7 +125,7 @@ namespace StopGerry.Utilities
 
         private static void WriteFormattedLog(LogLevel level, string text)
         {
-            if(loggingLevelMap[_loggingLevel].Contains(level))
+            if (loggingLevelMap[_loggingLevel].Contains(level))
             {
                 string pretext = level switch
                 {
@@ -136,7 +141,7 @@ namespace StopGerry.Utilities
             }
         }
 
-        
+
         private static readonly Dictionary<int, List<LogLevel>> loggingLevelMap = new Dictionary<int, List<LogLevel>>()
         {
             {0, new List<LogLevel>()

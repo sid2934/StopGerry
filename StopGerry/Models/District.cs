@@ -11,7 +11,9 @@ namespace StopGerry.Models
             BlockDistrictTime = new HashSet<BlockDistrictTime>();
         }
 
-        public string Id { get; set; }
+        public Guid Id { get; set; }
+        public int Year { get; set; }
+        public string Districtcode { get; set; }
         public string Description { get; set; }
         public string Source { get; set; }
         public int Districttypeid { get; set; }
