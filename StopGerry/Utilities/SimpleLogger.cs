@@ -8,7 +8,7 @@ namespace StopGerry.Utilities
     {
         private const string FILE_EXT = ".log";
         private static readonly string datetimeFormat = "yyyy-MM-dd HH:mm:ss.fff";
-        private static string logFilename => System.Reflection.Assembly.GetExecutingAssembly().GetName().Name + $"_{Dns.GetHostName()}{_jobid}" + FILE_EXT;
+        private static string LogFilename => System.Reflection.Assembly.GetExecutingAssembly().GetName().Name + $"_{Dns.GetHostName()}{_jobid}" + FILE_EXT;
         private static string _jobid = "";
         private static int _loggingLevel = 0;
 
@@ -105,7 +105,7 @@ namespace StopGerry.Utilities
         {
             try
             {
-                using (System.IO.StreamWriter writer = new System.IO.StreamWriter(logFilename, append, System.Text.Encoding.UTF8))
+                using (System.IO.StreamWriter writer = new System.IO.StreamWriter(LogFilename, append, System.Text.Encoding.UTF8))
                 {
                     if (!string.IsNullOrEmpty(text))
                     {
