@@ -1,19 +1,3 @@
-
-/* THIS IS NO LONGER USED
-DROP TABLE IF EXISTS County_Election;
-CREATE TABLE IF NOT EXISTS County_Election
-(
-    Id uuid PRIMARY KEY DEFAULT UUID_GENERATE_V4(), -- Primary Key column
-    County_Id VARCHAR(50) NOT NULL,
-    Description VARCHAR(255) NOT NULL,
-    Election_Date DATE NOT NULL,
-    Election_Type VARCHAR(50) NOT NULL,
-
-    CONSTRAINT FK_County_County_Election FOREIGN KEY (County_Id)  REFERENCES County(Id)
-);
-*/
-
-
 DROP TABLE IF EXISTS Office;
 CREATE TABLE IF NOT EXISTS Office
 (
@@ -60,20 +44,22 @@ CREATE TABLE IF NOT EXISTS Candidate
 );
 
 
-
+DROP TABLE IF EXISTS Result;
 CREATE TABLE IF NOT EXISTS Result
 (
     Id uuid PRIMARY KEY DEFAULT UUID_GENERATE_V4(),
     County_Id VARCHAR(50) NOT NULL,
-    Precinct VARCHAR(255) NOT NULL,
-    Office_Id INT NOT NULL,
+    Result_Resolution VARCHAR(8) NOT NULL,
+    Precinct VARCHAR(255) NULL,
+    Office VARCHAR(255) NOT NULL,
     District_Code VARCHAR(6) NULL,
     Candidate_Id INT NOT NULL,
     Number_Of_Votes_Recieved INT NOT NULL,
+    Election_Date DATE NOT NULL,
+    Election_Type VARCHAR(50) NOT NULL,
     Source VARCHAR(255) NOT NULL,
 
     CONSTRAINT FK_County_Result FOREIGN KEY (County_Id) REFERENCES County(Id),
-    CONSTRAINT FK_Office_Result FOREIGN KEY (Office_Id) REFERENCES Office(Id),
     CONSTRAINT FK_Candidate_Result FOREIGN KEY (Candidate_Id) REFERENCES Candidate(Id)
 
 );

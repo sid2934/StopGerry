@@ -8,6 +8,8 @@ namespace StopGerry.Models
     {
         public County()
         {
+            BlockCountyTime = new HashSet<BlockCountyTime>();
+            CountyTime = new HashSet<CountyTime>();
             Result = new HashSet<Result>();
         }
 
@@ -17,6 +19,8 @@ namespace StopGerry.Models
         public string Source { get; set; }
         public Geometry Border { get; set; }
 
+        public virtual ICollection<BlockCountyTime> BlockCountyTime { get; set; }
+        public virtual ICollection<CountyTime> CountyTime { get; set; }
         public virtual ICollection<Result> Result { get; set; }
     }
 }
