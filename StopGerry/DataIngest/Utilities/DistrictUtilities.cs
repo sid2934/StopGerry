@@ -30,18 +30,18 @@ namespace StopGerry.DataIngest.Utilities
                     var what = splitTheFileName[3].ToUpper();
 
 
-                    int newDistrictTypeId;
+                    string newDistrictTypeId;
                     if (what.Substring(0, 2) == "CD")
                     {
-                        newDistrictTypeId = 1;
+                        newDistrictTypeId = "CD";
                     }
                     else if (what == "SLDL")
                     {
-                        newDistrictTypeId = 2;
+                        newDistrictTypeId = "SLDL";
                     }
                     else if (what == "SLDU")
                     {
-                        newDistrictTypeId = 3;
+                        newDistrictTypeId = "SLDU";
                     }
                     else
                     {
@@ -54,11 +54,11 @@ namespace StopGerry.DataIngest.Utilities
 
                     var newDistrict = new District()
                     {
-                        Districtcode = Regex.Replace(placemark.Name, @"\<[^\>]*\>", ""),
+                        DistrictCode = Regex.Replace(placemark.Name, @"\<[^\>]*\>", ""),
                         Year = Convert.ToInt32(when),
                         Description = placemark.Description.Text,
                         Source = resourceFile.FileSource,
-                        Districttypeid = newDistrictTypeId
+                        DistrictType = newDistrictTypeId
                     };
 
                     var districBorder = SharpKMLToNetTopology.GeometryToGeometry(placemark.Geometry);

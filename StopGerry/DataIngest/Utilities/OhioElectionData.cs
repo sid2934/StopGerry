@@ -16,29 +16,6 @@ namespace StopGerry.DataIngest.Utilities
 
             string electiontypeString = resource.RecordDescription.Split('-')[3];
 
-            ElectionType electionType = dbContext.ElectionType.Where(et => et.Description == electiontypeString).FirstOrDefault();
-            if (electionType == null)
-            {
-                electionType = new ElectionType()
-                {
-                    Description = electiontypeString,
-                };
-                dbContext.Add(electionType);
-                dbContext.SaveChanges();
-            }
-
-            string raceTypeString = resource.RecordDescription.Split('-')[2];
-            ElectionraceType raceType = dbContext.ElectionraceType.Where(rt => rt.Description == raceTypeString).FirstOrDefault();
-            if (raceType == null)
-            {
-                raceType = new ElectionraceType()
-                {
-                    Description = raceTypeString,
-                    Positionlevelid = 4
-                };
-                dbContext.Add(electionType);
-                dbContext.SaveChanges();
-            }
 
             using (var reader = new StreamReader(resource.FilePath))
             using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
@@ -72,18 +49,6 @@ namespace StopGerry.DataIngest.Utilities
                                 }
 
 
-                                Party candidateParty = dbContext.Party.Where(p => p.Name == candidatePartyString || p.Abbreviation == candidatePartyString).FirstOrDefault();
-                                if (candidateParty == null)
-                                {
-                                    candidateParty = new Party()
-                                    {
-                                        Name = candidatePartyString,
-                                        Abbreviation = candidatePartyString.Length <= 5 ? candidatePartyString : candidatePartyString.Substring(0, 5),
-                                    };
-                                    dbContext.Add(candidateParty);
-                                    dbContext.SaveChanges();
-                                }
-
                                 //See if the candidate already exists if not create them
                                 int nameEndIndex = candidateString.IndexOf('(') - 1;
                                 string candidateName;
@@ -96,14 +61,13 @@ namespace StopGerry.DataIngest.Utilities
                                     candidateName = candidateString.Substring(0, candidateString.IndexOf('(') - 1).Trim();
                                 }
 
-                                Candidate candidate = dbContext.Candidate.Where(c => c.Name == candidateName && c.Partyid == candidateParty.Id).FirstOrDefault();
-
+                                Candidate candidate = dbContext.Candidate.Where(c => c.Name == candidateName && c.Party == candidatePartyString).FirstOrDefault();
                                 if (candidate == null)
                                 {
                                     candidate = new Candidate()
                                     {
                                         Name = candidateName,
-                                        Partyid = candidateParty.Id,
+                                        Party = candidatePartyString,
                                     };
                                     dbContext.Add(candidate);
                                 }
@@ -129,46 +93,14 @@ namespace StopGerry.DataIngest.Utilities
                     }
                     else
                     {
+
+                        //ToDo: Make this not do a database request everytime. Read all counties to a dictionary or hashtable and look up that way
                         County county = dbContext.County.Where(c => c.Description == countyName).FirstOrDefault();
                         if (county == null)
                         {
                             SimpleLogger.Error($"The county {countyName} could not be found in the list of counties in the database.");
                             continue;
                         }
-                        //START HERE. create a valid CountyElection, Race, then generate a result for each candidate
-                        CountyElection countyElection =
-                            dbContext.CountyElection
-                                .Where(ce => ce.Description == resource.RecordDescription)
-                                .FirstOrDefault();
-                        if (countyElection == null)
-                        {
-                            countyElection = new CountyElection()
-                            {
-                                Id = Guid.NewGuid(),
-                                Description = resource.RecordDescription,
-                                Electiondate = Convert.ToDateTime(resource.DateOfNote),
-                                Electiontypeid = electionType.Id,
-                                Countyid = county.Id
-                            };
-                            dbContext.Add(countyElection);
-                            dbContext.SaveChanges();
-                        }
-
-
-                        Electionrace race = dbContext.Electionrace.Where(r => r.Countyelectionid == countyElection.Id && r.Electionracetypeid == raceType.Id).FirstOrDefault();
-                        if (race == null)
-                        {
-                            race = new Electionrace()
-                            {
-                                Id = Guid.NewGuid(),
-                                Electionracetypeid = raceType.Id,
-                                Countyelectionid = countyElection.Id
-                            };
-                            dbContext.Add(race);
-                            dbContext.SaveChanges();
-                        }
-
-
 
 
                         foreach (var candidate in candidates)
@@ -177,16 +109,12 @@ namespace StopGerry.DataIngest.Utilities
                             {
                                 dbContext.Result.Add(new Result()
                                 {
-                                    Id = Guid.NewGuid(),
-                                    Candidateid = candidate.Value.Id,
-                                    Numberofvotesrecieved = int.Parse(csv.GetField(candidate.Key), NumberStyles.AllowThousands),
-                                    Electionraceid = race.Id,
-                                    Source = resource.FileSource,
+                                    //! Todo: Actually add the result
                                 });
                             }
                             catch (Exception e)
                             {
-                                SimpleLogger.Error($"Could not process result record for County:{countyName} RaceId:{race.Id} Candidate:{candidate.Value.Name}.\n{e}");
+                                SimpleLogger.Error($"Could not process result record for County:{countyName} RaceId:{("NEEDS TO BE SET")} Candidate:{candidate.Value.Name}.\n{e}");
                             }
                         }
                         dbContext.SaveChanges();

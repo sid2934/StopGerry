@@ -1,4 +1,3 @@
-GRANT ALL ON SCHEMA public TO doadmin;
 GRANT ALL ON SCHEMA public TO public;
 
 CREATE EXTENSION IF NOT EXISTS postgis;

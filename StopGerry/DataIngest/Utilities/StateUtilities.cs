@@ -81,8 +81,8 @@ namespace StopGerry.DataIngest.Utilities
                         Border = null, //This prevents errors about the Geomerty encoding that SQL Server uses. We will just reprocess the border kml
                         Name = dynamicRecord.Name,
                         Source = dynamicRecord.Source,
-                        Countytypeid = Convert.ToInt32(dynamicRecord.CountyTypeId),
-                        Statetypeid = Convert.ToInt32(dynamicRecord.StateTypeId),
+                        CountyType = dynamicRecord.CountyTypeId,
+                        StateType = dynamicRecord.StateTypeId,
                         
                     });
                 }

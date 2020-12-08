@@ -55,7 +55,7 @@ namespace StopGerry.DataIngest
                 SimpleLogger.Debug($"Get districts for state: {state} [FIPS]");
 
                 
-                var districtsToProcess = dbContext.District.Where(d => d.Districtcode.Substring(0, 2) == state).ToList();
+                var districtsToProcess = dbContext.District.Where(d => d.DistrictCode.Substring(0, 2) == state).ToList();
 
 
                 SimpleLogger.Debug($"Selected {districtsToProcess.Count} districts for state: {state} this run");
@@ -74,7 +74,7 @@ namespace StopGerry.DataIngest
                     Parallel.ForEach(districtsToProcess, district =>
                     {
                         var blockState = block.Id.Substring(0,2);
-                        var districtState = district.Districtcode.Substring(0, 2);
+                        var districtState = district.DistrictCode.Substring(0, 2);
 
                         if (district.Border.Contains(block.Coordinates))
                         {
@@ -83,9 +83,9 @@ namespace StopGerry.DataIngest
                             newResults.Add(new BlockDistrictTime()
                             {
                                 Id = Guid.NewGuid(),
-                                Blockid = block.Id,
-                                Districtid = district.Id,
-                                Timestart = Convert.ToDateTime("1/1/1970")
+                                BlockId = block.Id,
+                                DistrictId = district.Id,
+                                TimeStart = Convert.ToDateTime("1/1/1970")
                             });
                         }
                     });
@@ -97,15 +97,15 @@ namespace StopGerry.DataIngest
             //Create a new preformance record
             var newPerformanceAnalysis = new PerformanceAnalysis
                 {
-                    Numberofblocks = totalNumberOfBlocks,
-                    Numberofdistricts = totalNumberOfDistricts,
-                    Numberofcoresavailable = Environment.ProcessorCount,
-                    Memoryused = PreformanceMetrics.GetMemoryUsage(),
+                    NumberOfBlocks = totalNumberOfBlocks,
+                    NumberOfDistricts = totalNumberOfDistricts,
+                    NumberOfCoresAvailable = Environment.ProcessorCount,
+                    MemoryUsed = PreformanceMetrics.GetMemoryUsage(),
                     States = states,
-                    Totalruntime = PreformanceMetrics.ElapseTime,
+                    TotalRuntime = PreformanceMetrics.ElapseTime,
                     Hostname = Dns.GetHostName(),
-                    Systempagesize = Environment.SystemPageSize,
-                    Jobid = jobId,
+                    SystemPageSize = Environment.SystemPageSize,
+                    JobId = jobId,
                 };
             SimpleLogger.Info(ObjectDumper.Dump(newPerformanceAnalysis));
             dbContext.PerformanceAnalysis.Add(newPerformanceAnalysis);

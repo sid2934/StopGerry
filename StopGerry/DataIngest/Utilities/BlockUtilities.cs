@@ -56,8 +56,8 @@ namespace StopGerry.DataIngest.Utilities
 
                     censusDataCollection.Add(new BlockPopulationTime{
                         Id = Guid.NewGuid(),
-                        Blockid = blockId,
-                        Reportingdate = dateOfNote,
+                        BlockId = blockId,
+                        ReportingDate = dateOfNote,
                         Population = Convert.ToInt32(record.POP100),
                         
                     });
