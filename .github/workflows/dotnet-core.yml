@@ -20,6 +20,8 @@ jobs:
       with:
         dotnet-version: 5.0
     - name: Install dependencies
+      working-directory: ${{env.working-directory}}
       run: dotnet restore
     - name: Build
+      working-directory: ${{env.working-directory}}
       run: dotnet publish -r linux-x64 /p:PublishTrimmed=true -p:PublishSingleFile=true --self-contained true
