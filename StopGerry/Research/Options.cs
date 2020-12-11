@@ -48,7 +48,7 @@ namespace StopGerry.Research
             Required = false,
             Default = null,
             HelpText = "Provides a file path to print the results to")]
-        public string OutputToFile { get; set; }
+        public string OutputPath { get; set; }
 
         [Option('g', "generate-graphics",
             Required = false,

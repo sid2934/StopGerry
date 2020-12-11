@@ -1,7 +1,9 @@
 using System;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using CommandLine;
+using CsvHelper;
 using StopGerry.Utilities;
 
 namespace StopGerry.Research
@@ -49,12 +51,35 @@ namespace StopGerry.Research
                             }
                         }
 
-                        var result = EfficiencyGap.StateUtilities.ProcessStates(options.States, Convert.ToDateTime(options.ElectionDate), options.Source, districtTypes);
-                        SimpleLogger.Info($"EfficiencyGap results =\n{ObjectDumper.Dump(result)}");
+                        var results = EfficiencyGap.StateUtilities.ProcessStates(options.States, Convert.ToDateTime(options.ElectionDate), options.Source, districtTypes);
+                        SimpleLogger.Info($"EfficiencyGap results =\n{ObjectDumper.Dump(results)}");
 
-                        if(!string.IsNullOrWhiteSpace(options.OutputToFile))
+                        if(!string.IsNullOrWhiteSpace(options.OutputPath))
                         {
                             //Write result to file
+                            
+
+                            using(var writer = new StreamWriter(options.OutputPath))
+                            {
+                                writer.Write($"state,election_date,source");
+                                foreach(var districtType in districtTypes)
+                                {
+                                    writer.Write($"{districtType}_PartyWithAdvantage,Advantage,");
+                                }
+                                writer.WriteLine($"");
+                                foreach(var state in results)
+                                {
+                                    writer.Write($"{state.Key},{options.ElectionDate},{options.Source}");
+                                    //Each state should have results for each district type in options.DistrictTypes
+                                    foreach(var districtType in districtTypes)
+                                    {
+                                        var party = state.Value[districtType].Winner.Party;
+                                        var advantage = state.Value[districtType].RunnerUp.WastedVotePercentage() - state.Value[districtType].Winner.WastedVotePercentage();
+                                        writer.Write($"{party},{advantage},");
+                                    }
+                                    writer.WriteLine($"");
+                                }
+                            }
                         }
                         if(options.GenerateGraphics == true)
                         {
