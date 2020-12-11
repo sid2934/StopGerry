@@ -62,14 +62,8 @@ namespace StopGerry.Research
                         }
                     }
 
-                    
+                    //ToDo: Allow for specific district calculations
 
-
-
-
-
-                    //EfficiencyGapUtility.GenerateEfficiencyGap("SC", Convert.ToDateTime("2016-11-08"), @"https://raw.githubusercontent.com/openelections/openelections-data-sc/master/2016/20161108__sc__general__precinct.csv");
-                    EfficiencyGap.StateUtilities.CalculateStateEG("SC", Convert.ToDateTime("2016-11-08"), @"https://raw.githubusercontent.com/openelections/openelections-data-sc/master/2016/20161108__sc__general__precinct.csv");
                 }
                 
             }

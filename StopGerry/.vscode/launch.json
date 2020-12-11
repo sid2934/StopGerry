@@ -11,8 +11,8 @@
             "preLaunchTask": "build",
             // If you have changed target frameworks, make sure to update the program path.
             "program": "${workspaceFolder}/bin/Debug/net5.0/StopGerry.dll",
-            //"args": ["ingest", "-p", "-v 1",],
-            "args": ["research", "-e", "-a","2016-11-08", "-s","SC", "-u","https://raw.githubusercontent.com/openelections/openelections-data-sc/master/2016/20161108__sc__general__precinct.csv", "-v 2"],
+            "args": ["ingest", "-p", "-v 2",],
+            //"args": ["research", "-e", "-a","2016-11-08", "-s","SC", "-u","https://raw.githubusercontent.com/openelections/openelections-data-sc/master/2016/20161108__sc__general__precinct.csv", "-v 2"],
             "cwd": "${workspaceFolder}",
             // For more information about the 'console' field, see https://aka.ms/VSCode-CS-LaunchJson-Console
             "console": "internalConsole",

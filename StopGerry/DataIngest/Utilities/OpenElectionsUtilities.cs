@@ -17,7 +17,7 @@ namespace StopGerry.DataIngest.Utilities
                 List<OpenElections_Container> list = new List<OpenElections_Container>();
                 foreach (var record in csv.GetRecords<dynamic>())
                 {
-                    if(record.skip == false)
+                    if(record.skip == "false")
                     {
                         list.Add(new OpenElections_Container(record.url, dbContext));
                     }

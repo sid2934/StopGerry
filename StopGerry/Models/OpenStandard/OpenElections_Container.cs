@@ -18,7 +18,7 @@ namespace StopGerry.Models.OpenStandard
 
         public OpenElections_Info Info { get; set; }
 
-        public IEnumerable<OpenElections_Results> Results { get; set; }
+        public List<OpenElections_Results> Results { get; set; }
 
         /// <summary>
         /// Creates the container for the OpenElection data file you wish to use
@@ -31,14 +31,14 @@ namespace StopGerry.Models.OpenStandard
             string fileName = url.Slice(url.LastIndexOf('/') + 1, url.Length);
             string fileNameWithoutExtension = fileName.Slice(0, fileName.LastIndexOf('.'));
             var splitString = fileNameWithoutExtension.Split("__");
-    
+
             var state = dbContext.State.Where(s => s.Abbreviation == splitString[1].ToUpper()).FirstOrDefault();
             if (state == null)
             {
                 throw new ArgumentException($"No state with the abbreviation {splitString[1].ToUpper()} could be found in the database");
             }
 
-            var countyList = dbContext.County.ToList().Where(c => Convert.ToInt32(c.Id.Slice(0, 2)) == state.Id).ToDictionary(c=>c.Description.ToLower(), c => c.Id);
+            var countyList = dbContext.County.ToList().Where(c => Convert.ToInt32(c.Id.Slice(0, 2)) == state.Id).ToDictionary(c => c.Description.ToLower(), c => c.Id);
 
             Info = new OpenElections_Info()
             {
@@ -57,7 +57,40 @@ namespace StopGerry.Models.OpenStandard
             {
                 //This monstrocity will read the contents of the url to memory and then attempt to process it as an OpenElections_Results type
                 //If sucessfule this.Results will be set to the values specified
-                Results = new CsvReader(new StreamReader(new HttpClient().GetStreamAsync(url).Result), CultureInfo.InvariantCulture).GetRecords<OpenElections_Results>().ToList();
+
+                using (var csv = new CsvReader(new StreamReader(new HttpClient().GetStreamAsync(url).Result), CultureInfo.InvariantCulture))
+                {
+                    csv.Read();
+                    csv.ReadHeader();
+                    string[] headerRow = csv.Context.HeaderRecord;
+                    if(headerRow.SequenceEqual(OpenElections_Results.headers))
+                    {
+                        Results = csv.GetRecords<OpenElections_Results>().ToList();
+                    }
+                    else
+                    {
+                        Results = new List<OpenElections_Results>();
+                        var records = csv.GetRecords<dynamic>(); 
+
+                        foreach(var record in records)
+                        {
+                            var r = record as IDictionary<string,object>;
+                            Results.Add(new OpenElections_Results()
+                            {
+                                candidate = (string) r["candidate"],
+                                county = (string) r["county"],
+                                district = (string) r["district"],
+                                office = (string) r["office"],
+                                party = (string) r["party"],
+                                precinct = (string) r["precinct code"],
+                                votes = (string) r["votes"],
+
+                            });
+                        }
+                    }
+
+                }
+
 
                 //Create record for the overall election
 
@@ -66,21 +99,21 @@ namespace StopGerry.Models.OpenStandard
 
                 foreach (var record in Results)
                 {
-                    
+                    //ToDo: A great speed increase could come from not having to "SaveChanges" when adding a candidate. The SaveChanges call must be done synchronously as the ID is update upon the return 
                     var result = record.SaveToDB(Info, dbContext);
 
-                    
+
                     CandidateLookUp[record.candidate] = result.Item1;
-                    
-                    if(result.Item2 != null)
-                    { 
+
+                    if (result.Item2 != null)
+                    {
                         DistrictLookUp[record.district] = result.Item2;
                     }
                     else if (result.Item2 != null && !string.IsNullOrWhiteSpace(record.precinct))
                         SimpleLogger.Error($"Record return from OpenElections_Results.SaveToDB() contained null value for DistrictLookUp {ObjectDumper.Dump(record)}");
 
                 }
-                
+
                 dbContext.SaveChanges();
 
 

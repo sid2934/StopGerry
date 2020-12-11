@@ -1,3 +1,6 @@
 url,skip
 https://raw.githubusercontent.com/openelections/openelections-data-sc/master/2016/20161108__sc__general__precinct.csv,true
 https://raw.githubusercontent.com/openelections/openelections-data-sc/master/2018/20181106__sc__general__precinct.csv,true
+https://raw.githubusercontent.com/openelections/openelections-data-oh/master/2018/20181106__oh__general__precinct.csv,false
+https://raw.githubusercontent.com/openelections/openelections-data-oh/master/2016/20161108__oh__general__precinct.csv,true
+https://raw.githubusercontent.com/openelections/openelections-data-ca/master/2016/20161108__ca__general__precinct.csv,true

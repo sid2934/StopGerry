@@ -20,7 +20,7 @@ namespace StopGerry.Utilities
 
         internal static void SetJobId(string jobId)
         {
-            _jobid = "_" + jobId;
+            _jobid = string.IsNullOrWhiteSpace(jobId) ? "" : "_" + jobId;
         }
 
         private static bool _writeToConsole;

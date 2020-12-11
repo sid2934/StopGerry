@@ -16,7 +16,7 @@ namespace StopGerry.Models.OpenStandard
         public string candidate { get; set; }
         public string votes { get; set; }
 
-
+        public static readonly string[] headers = {"county", "precinct", "office", "district", "party", "candidate", "votes"};
 
         private OpenElections_Info _info;
 
