@@ -7,22 +7,9 @@ namespace StopGerry.DataIngest
 {
 
     [Verb("ingest", HelpText = "Targets the data ingest components of StopGerry")]
-    public class Options
+    public class Options : BaseOptions
     {
         
-        [Option('v', "verbosity", 
-            Required = false, 
-            Default= 0,
-            HelpText = "Set output to verbose messages level. usage -v|--verbosity [LOGGING_LEVEL] (valid values 0,1,2)")]
-        public int Verbosity { get; set; }
-
-
-        [Option('c', "log-to-console", 
-            Required = false, 
-            Default= false,
-            HelpText = "If set to true will print all logging messages directly to the console. Can reduce performance")]
-        public bool LogToConsole {get; set;}
-
         [Option('p', "process-resource-map", 
             Required = false, 
             Default= false,
@@ -47,11 +34,7 @@ namespace StopGerry.DataIngest
             HelpText = "A csv list of each state to do analysis on given by the state abbreviation")]
         public string AnalysisStates { get; set; }
 
-        [Option('j', "job-id", 
-            Required = false, 
-            Default= null,
-            HelpText = "The job id for this run, will be used in certian outputs")]
-        public string JobId { get; set; }
+        
     }
 
 }

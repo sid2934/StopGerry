@@ -9,11 +9,17 @@ namespace StopGerry.Research
     {
         public static int HandleRequest(Options options)
         {
+
+            SimpleLogger.SetLoggingLevel(options.Verbosity, options.LogToConsole);
+            SimpleLogger.SetJobId(options.JobId);
+            SimpleLogger.Start();
+
             try
             {
                 if(options.EfficiencyGap == true)
                 {
-                    //var dbContext = new dbContext();
+                    //EfficiencyGapUtility.GenerateEfficiencyGap("SC", Convert.ToDateTime("2016-11-08"), @"https://raw.githubusercontent.com/openelections/openelections-data-sc/master/2016/20161108__sc__general__precinct.csv");
+                    EfficiencyGap.CalculateDistrictEG("45003", "U.S. House", Convert.ToDateTime("2016-11-08"), @"https://raw.githubusercontent.com/openelections/openelections-data-sc/master/2016/20161108__sc__general__precinct.csv");
                 }
                 
             }

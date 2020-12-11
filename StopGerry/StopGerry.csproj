@@ -2,7 +2,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFramework>net5.0</TargetFramework>
     <UserSecretsId>d8baa2de-48ba-4f31-813c-e26b176ced3a</UserSecretsId>
   </PropertyGroup>
   <ItemGroup>

@@ -21,10 +21,26 @@ using Microsoft.EntityFrameworkCore;
 
 namespace StopGerry
 {
-    public class Options
+    public class BaseOptions
     {
-        [Option('v', "verbose", Required = false, HelpText = "Set output to verbose messages.")]
-        public bool Verbose { get; set; }
+        [Option('v', "verbosity",
+            Required = false,
+            Default = 0,
+            HelpText = "Set output to verbose messages level. usage -v|--verbosity [LOGGING_LEVEL] (valid values 0,1,2)")]
+        public short Verbosity { get; set; }
+
+
+        [Option('c', "log-to-console",
+            Required = false,
+            Default = false,
+            HelpText = "If set to true will print all logging messages directly to the console. Can reduce performance")]
+        public bool LogToConsole { get; set; }
+
+        [Option('j', "job-id",
+            Required = false,
+            Default = null,
+            HelpText = "The job id for this run, will be used in certian outputs")]
+        public string JobId { get; set; }
 
     }
 
@@ -38,8 +54,8 @@ namespace StopGerry
 
 
 
-            
-            
+
+
             CommandLine.Parser.Default.ParseArguments<DataIngest.Options, Research.Options>(args)
                 .MapResult(
                     (DataIngest.Options opts) => DataIngest.RequestHandler.HandleRequest(opts),
