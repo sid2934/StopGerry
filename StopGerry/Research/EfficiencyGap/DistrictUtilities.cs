@@ -13,7 +13,7 @@ namespace StopGerry.Research.EfficiencyGap
     public class DistrictsUtilities
     {
 
-        public class PartyAggregateDistrictResult
+        public class PartyAggregateResult
         {
             public string Party { get; set; }
 
@@ -31,6 +31,11 @@ namespace StopGerry.Research.EfficiencyGap
 
             public bool? Win { get; set; }
 
+            public double WastedVotePercentage()
+            {
+                return (double)(WastedVotes / (double) Votes);
+            }
+
         }
 
         
@@ -41,7 +46,7 @@ namespace StopGerry.Research.EfficiencyGap
             /// A list of aggregate result data by party
             /// </summary>
             /// <value>A list of aggregate result data by party</value>
-            public List<PartyAggregateDistrictResult> PartyAggregateList { get; set; }
+            public List<PartyAggregateResult> PartyAggregateList { get; set; }
 
             /// <summary>
             /// ToDo: This is currently only the total from the top two parties NOT all parties
@@ -65,7 +70,7 @@ namespace StopGerry.Research.EfficiencyGap
             /// The winner of this election (The party with the most votes)
             /// </summary>
             /// <value>Aggregate data containing the winners information</value>
-            public PartyAggregateDistrictResult Winner
+            public PartyAggregateResult Winner
             {
                 get
                 {
@@ -74,7 +79,7 @@ namespace StopGerry.Research.EfficiencyGap
             }
 
 
-            public PartyAggregateDistrictResult RunnerUp
+            public PartyAggregateResult RunnerUp
             {
                 get
                 {
@@ -148,7 +153,7 @@ namespace StopGerry.Research.EfficiencyGap
         /// <param name="electionDate">The date of the election to look at</param>
         /// <param name="source">The source of election results to use. Avoids getting the same results from different sources at the same time</param>
         /// <returns>A list containing a record for each party that earned votes in the given district in the desired election</returns>
-        private static List<PartyAggregateDistrictResult> GetAggregateDistrictResults(string districtCode, string office, DateTime electionDate, string source)
+        private static List<PartyAggregateResult> GetAggregateDistrictResults(string districtCode, string office, DateTime electionDate, string source)
         {
             var dbContext = new stopgerryContext();
 
@@ -175,7 +180,7 @@ namespace StopGerry.Research.EfficiencyGap
                         r.ResultResolution
 
                     }
-                ).GroupBy(r => r.Party).Select(r => new PartyAggregateDistrictResult()
+                ).GroupBy(r => r.Party).Select(r => new PartyAggregateResult()
                 {
                     Party = r.Key,
                     Votes = r.Sum(dr => dr.NumberOfVotesRecieved)
