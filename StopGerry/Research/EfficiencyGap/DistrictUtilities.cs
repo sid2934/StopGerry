@@ -4,14 +4,15 @@ using System.Linq;
 using StopGerry.Models;
 using StopGerry.Utilities;
 
-namespace StopGerry.Research
+namespace StopGerry.Research.EfficiencyGap
 {
 
 
 
 
-    public class EfficiencyGap
+    public class DistrictsUtilities
     {
+
         public class PartyAggregateDistrictResult
         {
             public string Party { get; set; }
@@ -69,6 +70,15 @@ namespace StopGerry.Research
                 get
                 {
                     return PartyAggregateList?[0];
+                }
+            }
+
+
+            public PartyAggregateDistrictResult RunnerUp
+            {
+                get
+                {
+                    return PartyAggregateList?[1];
                 }
             }
 
@@ -171,5 +181,7 @@ namespace StopGerry.Research
                     Votes = r.Sum(dr => dr.NumberOfVotesRecieved)
                 }).ToList();
         }
+    
+
     }
 }
