@@ -1,10 +1,29 @@
 # StopGerry - is a project to create tools that can analyse voter data and district maps to determine if the maps are created in bad faith for political gain
 
+![.NET Core](https://github.com/sid2934/StopGerry/workflows/.NET%20Core/badge.svg?branch=master)
+
 ## Current Status
 The current status of the project is tin the initial development stage. We are activly developing the database infrastructure and data ingest tools that will eventually help drive the main application.
 
+## Building from source
+
+Prerequisite:
+* Must have .NET [5.0 SDK](https://dotnet.microsoft.com/download/dotnet/5.0) or higher installed
+
+
+1) clone this repository
+2) cd ./StopGerry
+3) dotnet restore
+4) dotnet build (This is the simplest build, see the [dotnet build](https://docs.microsoft.com/en-us/dotnet/core/tools/dotnet-build) for more info)
+
+### Simple Usage
+1) Download the latest build artifacts from the GitHub actions (This artifact is build for linux systems, if you need windows build from source)
+2) Modify the appsettings.json with the correct correction string info to make a connection to the database (code name Deja)
+3) Use ./StopGerry --help for information on how to use the tool
+
+
 ### Database_Files
-This project subdirectory contains the files to create and schemes, tables, etc for the MSSQL Database. The main files are .ipynb Junyter notebooks. I use Azure Data Studio to work on them, which has support to view and edit them. They are seperated based on the schema they modify with the main 3 being Location, Census, annd Election.
+This project subdirectory contains the files to create and schemes, tables, etc for the Postgres Database. The main files are .ipynb Junyter notebooks. I use Azure Data Studio to work on them, which has support to view and edit them. They are seperated based on the schema they modify with the main 3 being Location, Census, annd Election.
 
 * Location
   * Location store data related to the physical location of places and their relationship to larger orginizational units(OU). 
@@ -52,8 +71,6 @@ All of the data used in this project comes directly from publically available so
 
 
 
-
-
 #### Preprocessing census data
 
 To preprocess the geoheader data for each state follow the directions below
@@ -65,3 +82,13 @@ To preprocess the geoheader data for each state follow the directions below
 5) Export the new $$geo2010 file as csv with headers
 6 Optional) Place the new .csv file in the resources/csv/ directory of the project
 1) Add the new .csv file to the resourceMap.csv file
+
+
+## Acknowledgment
+StopGerry would not be possible without the tools, libraries, datasets, etc that others have created. See [StopGerry/StopGerry.csproj](https://github.com/sid2934/StopGerry/blob/master/StopGerry/StopGerry.csproj) for a list of dotnet packages included.
+
+[OpenElections](https://github.com/openelections) is a fantastic project for US election data
+
+[PlanScore](https://planscore.org/#!2018-ushouse) provides a comprehensive view of gerrymandering historical data.
+
+The Efficency Gap metric for Gerrymandering was published by Nicholas Stephanopoulos and Eric McGhee in their paper ["Partisan Gerrymandering and the Efficiency Gap". University of Chicago Law Review. 82: 831–900. SSRN 2457468](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=2457468)
