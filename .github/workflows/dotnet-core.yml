@@ -25,3 +25,8 @@ jobs:
     - name: Build
       working-directory: ${{env.working-directory}}
       run: dotnet publish -r linux-x64 /p:PublishTrimmed=true -p:PublishSingleFile=true --self-contained true
+    - name: Upload Artifacts
+      uses: actions/upload-artifact@v2
+      with:
+        name: StopGerry
+        path: ${{env.working-directory}}/bin/Debug/net5.0/linux-x64/publish/StopGerry
