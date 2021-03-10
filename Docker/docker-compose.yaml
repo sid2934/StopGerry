@@ -1,7 +1,7 @@
 version: "3.9"
 services:
   postgres:
-    image: ubuntu/postgres
+    image: stop-gerry-database:latest
     ports: 
     - "54032:5432"
     environment:
@@ -10,7 +10,7 @@ services:
       POSTGRES_PASSWORD: YouNeedToChangeThis@123
       POSTGRES_DB: StopGerry
     volumes:
-      - presistentDatabase:/var/lib/postgresql/data
+      - presistentDatabase2:/var/lib/postgresql/data
     
 volumes:
-  presistentDatabase:
+  presistentDatabase2:
