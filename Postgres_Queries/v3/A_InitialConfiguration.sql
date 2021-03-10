@@ -1,4 +1,7 @@
 GRANT ALL ON SCHEMA public TO public;
 
+
 CREATE EXTENSION IF NOT EXISTS postgis;
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+
+DROP EXTENSION IF EXISTS postgis_tiger_geocoder
