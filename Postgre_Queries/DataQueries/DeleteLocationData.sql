@@ -1,0 +1,3 @@
+DELETE FROM State;
+DELETE FROM County;
+DELETE FROM Block;
