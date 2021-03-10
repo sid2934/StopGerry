@@ -10,7 +10,7 @@ services:
       POSTGRES_PASSWORD: YouNeedToChangeThis@123
       POSTGRES_DB: StopGerry
     volumes:
-      - presistentDatabase2:/var/lib/postgresql/data
+      - presistentDatabase:/var/lib/postgresql/data
     
 volumes:
-  presistentDatabase2:
+  presistentDatabase:
